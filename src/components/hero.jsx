@@ -6,9 +6,9 @@ const Hero = () => {
   const [imageError, setImageError] = useState(false)
 
   const roles = [
-    "Game Developer",
-    "Problem Solver",
-    "Creative Thinker"
+    "Unity Game Developer",
+    "Gameplay Programmer",
+    "Physics & Sim Enthusiast"
   ]
 
   useEffect(() => {
@@ -44,7 +44,7 @@ const Hero = () => {
               I'm a <span className="animated-text">{roles[currentTextIndex]}</span>
             </h2>
             <p className="hero-description">
-              Passionate about creating intelligent and immersive worlds where game development meets artificial intelligence and innovation.
+              Designing optimized gameplay loops, physics simulations, and immersive interactive mechanics. Specializing in C# and Unity engine systems.
             </p>
             
             <div className="hero-buttons">
@@ -64,18 +64,20 @@ const Hero = () => {
           </div>
 
           <div className="hero-visual">
-            <div className="hero-image">
+            <div className="hero-image-wrapper">
+              <div className="glowing-ring ring-1"></div>
+              <div className="glowing-ring ring-2"></div>
               <div className="profile-container">
                 {!imageError ? (
                   <img 
                     src="/profile-image.jpeg" 
-                    alt="Shammas - Full Stack Developer" 
+                    alt="Shammas - Game Developer" 
                     className="profile-image"
                     onError={handleImageError}
                   />
                 ) : (
                   <div className="profile-fallback">
-                    <div className="fallback-icon">👨‍💻</div>
+                    <div className="fallback-icon">🎮</div>
                     <div className="fallback-text">SM</div>
                   </div>
                 )}
@@ -94,7 +96,8 @@ const Hero = () => {
       <style jsx>{`
         .hero-section {
           min-height: 100vh;
-          background: var(--bg-secondary);
+          background: radial-gradient(circle at 75% 40%, rgba(102, 126, 234, 0.12) 0%, rgba(15, 20, 25, 0) 50%),
+                      var(--bg-secondary);
           display: flex;
           align-items: center;
           justify-content: center;
@@ -102,16 +105,33 @@ const Hero = () => {
           overflow: hidden;
         }
 
+        /* Tech grid background overlay */
+        .hero-section::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background-image: 
+            linear-gradient(rgba(102, 126, 234, 0.02) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(102, 126, 234, 0.02) 1px, transparent 1px);
+          background-size: 50px 50px;
+          background-position: center;
+          pointer-events: none;
+        }
+
         .hero-container {
           max-width: 1200px;
           margin: 0 auto;
           padding: 0 20px;
           width: 100%;
+          z-index: 2;
         }
 
         .hero-content {
           display: grid;
-          grid-template-columns: 1fr 1fr;
+          grid-template-columns: 1.2fr 0.8fr;
           gap: 4rem;
           align-items: center;
         }
@@ -130,11 +150,12 @@ const Hero = () => {
         }
 
         .hero-title {
-          font-size: 3.5rem;
+          font-size: 4rem;
           font-weight: 800;
           margin-bottom: 1rem;
           color: var(--text-primary);
           line-height: 1.1;
+          letter-spacing: -1px;
         }
 
         .highlight {
@@ -142,10 +163,11 @@ const Hero = () => {
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
           background-clip: text;
+          text-shadow: 0 0 40px rgba(102, 126, 234, 0.2);
         }
 
         .hero-subtitle {
-          font-size: 1.8rem;
+          font-size: 2rem;
           font-weight: 600;
           margin-bottom: 1.5rem;
           color: var(--text-secondary);
@@ -155,6 +177,7 @@ const Hero = () => {
           color: var(--accent-primary);
           border-right: 3px solid var(--accent-primary);
           animation: blink 1s infinite;
+          padding-right: 5px;
         }
 
         @keyframes blink {
@@ -163,16 +186,16 @@ const Hero = () => {
         }
 
         .hero-description {
-          font-size: 1.1rem;
+          font-size: 1.15rem;
           line-height: 1.7;
           color: var(--text-muted);
           margin-bottom: 2.5rem;
-          max-width: 500px;
+          max-width: 550px;
         }
 
         .hero-buttons {
           display: flex;
-          gap: 1rem;
+          gap: 1.2rem;
           flex-wrap: wrap;
         }
 
@@ -182,18 +205,55 @@ const Hero = () => {
           align-items: center;
         }
 
-        .hero-image {
+        .hero-image-wrapper {
           position: relative;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .glowing-ring {
+          position: absolute;
+          border-radius: 50%;
+          pointer-events: none;
+          z-index: 0;
+        }
+
+        .glowing-ring.ring-1 {
+          width: 380px;
+          height: 380px;
+          border: 2px dashed rgba(102, 126, 234, 0.25);
+          animation: rotateClockwise 25s linear infinite;
+        }
+
+        .glowing-ring.ring-2 {
+          width: 410px;
+          height: 410px;
+          border: 1px solid rgba(118, 75, 162, 0.15);
+          box-shadow: 0 0 30px rgba(102, 126, 234, 0.1) inset,
+                      0 0 30px rgba(102, 126, 234, 0.1);
+          animation: pulseGlow 4s ease-in-out infinite alternate;
+        }
+
+        @keyframes rotateClockwise {
+          0% { transform: rotate(0deg); }
+          100% { transform: rotate(360deg); }
+        }
+
+        @keyframes pulseGlow {
+          0% { transform: scale(0.96); opacity: 0.4; }
+          100% { transform: scale(1.04); opacity: 0.8; }
         }
 
         .profile-container {
           position: relative;
-          width: 350px;
-          height: 350px;
+          width: 330px;
+          height: 330px;
           border-radius: 50%;
           overflow: hidden;
-          box-shadow: 0 20px 40px rgba(102, 126, 234, 0.3);
+          box-shadow: 0 15px 40px rgba(102, 126, 234, 0.35);
           animation: float 6s ease-in-out infinite;
+          z-index: 1;
         }
 
         .profile-image {
@@ -238,8 +298,8 @@ const Hero = () => {
           bottom: 0;
           background: linear-gradient(
             135deg,
-            rgba(102, 126, 234, 0.1) 0%,
-            rgba(118, 75, 162, 0.1) 100%
+            rgba(102, 126, 234, 0.08) 0%,
+            rgba(118, 75, 162, 0.08) 100%
           );
           border-radius: 50%;
           pointer-events: none;
@@ -247,7 +307,7 @@ const Hero = () => {
 
         @keyframes float {
           0%, 100% { transform: translateY(0px); }
-          50% { transform: translateY(-20px); }
+          50% { transform: translateY(-15px); }
         }
 
         .scroll-indicator {
@@ -290,7 +350,7 @@ const Hero = () => {
 
         @media (max-width: 1024px) {
           .hero-content {
-            gap: 3rem;
+            gap: 2.5rem;
           }
 
           .hero-title {
@@ -302,8 +362,18 @@ const Hero = () => {
           }
 
           .profile-container {
-            width: 320px;
-            height: 320px;
+            width: 300px;
+            height: 300px;
+          }
+
+          .glowing-ring.ring-1 {
+            width: 340px;
+            height: 340px;
+          }
+
+          .glowing-ring.ring-2 {
+            width: 370px;
+            height: 370px;
           }
         }
 
@@ -315,16 +385,28 @@ const Hero = () => {
           }
 
           .hero-title {
-            font-size: 2.5rem;
+            font-size: 3rem;
           }
 
           .hero-subtitle {
-            font-size: 1.5rem;
+            font-size: 1.6rem;
+          }
+
+          .hero-description {
+            margin: 0 auto 2.5rem;
+          }
+
+          .hero-buttons {
+            justify-content: center;
+          }
+
+          .glowing-ring {
+            display: none;
           }
 
           .profile-container {
-            width: 280px;
-            height: 280px;
+            width: 260px;
+            height: 260px;
             margin: 0 auto;
           }
 
@@ -335,21 +417,11 @@ const Hero = () => {
           .fallback-text {
             font-size: 2.5rem;
           }
-
-          .hero-buttons {
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 1rem;
-          }
-
-          .scroll-indicator {
-            bottom: 20px;
-          }
         }
 
-        @media (max-width: 640px) {
+        @media (max-width: 480px) {
           .hero-title {
-            font-size: 2.2rem;
+            font-size: 2.4rem;
           }
 
           .hero-subtitle {
@@ -357,72 +429,13 @@ const Hero = () => {
           }
 
           .profile-container {
-            width: 250px;
-            height: 250px;
-          }
-
-          .fallback-icon {
-            font-size: 2.5rem;
-          }
-
-          .fallback-text {
-            font-size: 2rem;
-          }
-        }
-
-        @media (max-width: 480px) {
-          .hero-title {
-            font-size: 2rem;
-          }
-
-          .hero-subtitle {
-            font-size: 1.2rem;
-          }
-
-          .profile-container {
             width: 220px;
             height: 220px;
           }
 
-          .fallback-icon {
-            font-size: 2.5rem;
-          }
-
-          .fallback-text {
-            font-size: 2rem;
-          }
-
-          .hero-buttons {
-            flex-direction: column;
-            align-items: center;
-          }
-
           .btn {
             width: 100%;
-            max-width: 250px;
-          }
-        }
-
-        @media (max-width: 360px) {
-          .hero-title {
-            font-size: 1.8rem;
-          }
-
-          .hero-subtitle {
-            font-size: 1.1rem;
-          }
-
-          .profile-container {
-            width: 200px;
-            height: 200px;
-          }
-
-          .fallback-icon {
-            font-size: 2rem;
-          }
-
-          .fallback-text {
-            font-size: 1.8rem;
+            max-width: 260px;
           }
         }
       `}</style>

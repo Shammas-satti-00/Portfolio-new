@@ -52,8 +52,9 @@ const Footer = () => {
   const quickLinks = [
     { name: "Home", href: "#home" },
     { name: "About", href: "#about" },
-    { name: "Skills", href: "#skills" },
+    { name: "Experience", href: "#experience" },
     { name: "Projects", href: "#projects" },
+    { name: "Skills", href: "#skills" },
     { name: "Contact", href: "#contact" }
   ]
 
@@ -69,10 +70,12 @@ const Footer = () => {
       <div className="footer-content">
         <div className="footer-main">
           <div className="footer-section">
-            <h3 className="footer-title">Shammas</h3>
+            <h3 className="footer-title">
+              <span className="ft-bracket">&lt;</span>Shammas<span className="ft-bracket">/&gt;</span>
+            </h3>
             <p className="footer-description">
-              A passionate developer dedicated to creating innovative digital solutions 
-              and turning ideas into reality through clean, efficient code.
+              Unity game developer focused on building immersive, performant gameplay experiences.
+              C# | Unity 3D | Physics Simulation | Clean Architecture.
             </p>
             <div className="social-links">
               {socialLinks.map((social, index) => (
@@ -125,7 +128,7 @@ const Footer = () => {
             <h4 className="footer-subtitle">Contact Info</h4>
             <div className="contact-info">
               <p>📧 shammassatti00@gmail.com</p>
-              <p>📱 +923703550503</p>
+              <p>📱 +92-3703550503</p>
               <p>📍 Islamabad, Pakistan</p>
             </div>
           </div>
@@ -137,7 +140,7 @@ const Footer = () => {
               © {new Date().getFullYear()} Shammas. All rights reserved.
             </p>
             <p className="made-with">
-              Powered by creativity
+            
             </p>
           </div>
         </div>
@@ -158,19 +161,33 @@ const Footer = () => {
           background: var(--footer-bg);
           color: white;
           position: relative;
+          border-top: 1px solid var(--footer-border);
+        }
+
+        .footer::before {
+          content: '';
+          position: absolute;
+          top: -1px;
+          left: 50%;
+          transform: translateX(-50%);
+          width: 180px;
+          height: 2px;
+          background: var(--accent-gradient);
+          border-radius: 2px;
+          box-shadow: 0 0 20px rgba(102, 126, 234, 0.5);
         }
 
         .footer-content {
           max-width: 1200px;
           margin: 0 auto;
-          padding: 0 20px;
+          padding: 0 24px;
         }
 
         .footer-main {
           display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+          grid-template-columns: 1.4fr 1fr 1fr 1fr;
           gap: 3rem;
-          padding: 4rem 0 2rem;
+          padding: 4rem 0 2.5rem;
         }
 
         .footer-section {
@@ -179,43 +196,56 @@ const Footer = () => {
         }
 
         .footer-title {
-          font-size: 1.8rem;
+          font-size: 1.5rem;
           font-weight: 700;
           margin-bottom: 1rem;
+          display: flex;
+          align-items: center;
+          gap: 2px;
+          color: var(--text-primary);
+        }
+
+        .ft-bracket {
           background: var(--accent-gradient);
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
           background-clip: text;
+          font-family: 'JetBrains Mono', monospace;
+          font-weight: 600;
         }
 
         .footer-description {
           color: var(--footer-text);
-          line-height: 1.6;
+          line-height: 1.65;
           margin-bottom: 1.5rem;
+          font-size: 0.88rem;
         }
 
         .social-links {
           display: flex;
-          gap: 1rem;
+          gap: 0.7rem;
         }
 
         .social-link {
           display: flex;
           align-items: center;
           justify-content: center;
-          width: 40px;
-          height: 40px;
-          background: var(--footer-border);
-          border-radius: 50%;
+          width: 38px;
+          height: 38px;
+          background: var(--bg-tertiary);
+          border: 1px solid var(--border-color);
+          border-radius: 10px;
           color: var(--footer-text);
           text-decoration: none;
-          transition: all 0.3s ease;
+          transition: all 0.25s ease;
         }
 
         .social-link:hover {
-          background: var(--accent-primary);
+          background: var(--accent-gradient);
+          border-color: transparent;
           color: white;
-          transform: translateY(-2px);
+          transform: translateY(-3px);
+          box-shadow: 0 6px 20px rgba(102, 126, 234, 0.35);
         }
 
         .social-icon {
@@ -225,26 +255,33 @@ const Footer = () => {
         }
 
         .footer-subtitle {
-          font-size: 1.2rem;
-          font-weight: 600;
-          margin-bottom: 1rem;
-          color: #e2e8f0;
+          font-size: 0.78rem;
+          font-weight: 700;
+          letter-spacing: 0.1em;
+          text-transform: uppercase;
+          margin-bottom: 1.1rem;
+          color: var(--text-muted);
+          font-family: 'JetBrains Mono', monospace;
         }
 
         .footer-links {
           list-style: none;
           padding: 0;
+          display: flex;
+          flex-direction: column;
+          gap: 0.5rem;
         }
 
         .footer-links li {
-          margin-bottom: 0.5rem;
           color: var(--footer-text);
+          font-size: 0.9rem;
         }
 
         .footer-link {
           color: var(--footer-text);
           text-decoration: none;
-          transition: color 0.3s ease;
+          font-size: 0.9rem;
+          transition: color 0.2s ease;
         }
 
         .footer-link:hover {
@@ -254,11 +291,12 @@ const Footer = () => {
         .contact-info p {
           color: var(--footer-text);
           margin-bottom: 0.5rem;
+          font-size: 0.9rem;
         }
 
         .footer-bottom {
           border-top: 1px solid var(--footer-border);
-          padding: 2rem 0;
+          padding: 1.5rem 0;
         }
 
         .footer-bottom-content {
@@ -266,163 +304,57 @@ const Footer = () => {
           justify-content: space-between;
           align-items: center;
           flex-wrap: wrap;
-          gap: 1rem;
+          gap: 0.75rem;
         }
 
         .copyright,
         .made-with {
           color: var(--footer-text);
-          font-size: 0.9rem;
+          font-size: 0.85rem;
         }
 
         .back-to-top {
           position: fixed;
-          bottom: 30px;
-          right: 30px;
-          width: 50px;
-          height: 50px;
+          bottom: 28px;
+          right: 28px;
+          width: 44px;
+          height: 44px;
           background: var(--accent-gradient);
           color: white;
           border: none;
-          border-radius: 50%;
-          font-size: 1.5rem;
+          border-radius: 12px;
+          font-size: 1.3rem;
           cursor: pointer;
-          transition: all 0.3s ease;
-          z-index: 1000;
+          transition: all 0.25s ease;
+          z-index: 999;
           display: flex;
           align-items: center;
           justify-content: center;
+          box-shadow: 0 4px 20px rgba(102, 126, 234, 0.3);
         }
 
         .back-to-top:hover {
-          transform: translateY(-3px);
-          box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+          transform: translateY(-4px);
+          box-shadow: 0 10px 30px rgba(102, 126, 234, 0.5);
         }
 
-        @media (max-width: 1024px) {
-          .footer-main {
-            gap: 2.5rem;
-            padding: 4rem 0 3rem;
-          }
-
-          .footer-section h3 {
-            font-size: 1.4rem;
-          }
-
-          .back-to-top {
-            bottom: 25px;
-            right: 25px;
-          }
+        @media (max-width: 1200px) {
+          .footer-main { grid-template-columns: repeat(2, 1fr); }
         }
 
         @media (max-width: 768px) {
           .footer-main {
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-template-columns: repeat(2, 1fr);
             gap: 2rem;
-            padding: 3rem 0 2rem;
+            padding: 3rem 0 1.5rem;
           }
-
-          .footer-bottom-content {
-            flex-direction: column;
-            text-align: center;
-          }
-
-          .back-to-top {
-            bottom: 20px;
-            right: 20px;
-            width: 45px;
-            height: 45px;
-            font-size: 1.3rem;
-          }
-
-          .footer-section h3 {
-            font-size: 1.3rem;
-          }
-
-          .social-links {
-            gap: 0.8rem;
-          }
-
-          .social-link {
-            width: 35px;
-            height: 35px;
-          }
-        }
-
-        @media (max-width: 640px) {
-          .footer-main {
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 1.5rem;
-            padding: 2.5rem 0 1.5rem;
-          }
-
-          .footer-section h3 {
-            font-size: 1.2rem;
-          }
-
-          .social-link {
-            width: 32px;
-            height: 32px;
-          }
-
-          .back-to-top {
-            bottom: 15px;
-            right: 15px;
-            width: 40px;
-            height: 40px;
-            font-size: 1.2rem;
-          }
+          .footer-bottom-content { flex-direction: column; text-align: center; }
         }
 
         @media (max-width: 480px) {
-          .footer-main {
-            grid-template-columns: 1fr;
-            gap: 1.5rem;
-          }
-
-          .social-links {
-            justify-content: center;
-            gap: 0.6rem;
-          }
-
-          .social-link {
-            width: 30px;
-            height: 30px;
-          }
-
-          .footer-section h3 {
-            font-size: 1.1rem;
-          }
-
-          .back-to-top {
-            bottom: 10px;
-            right: 10px;
-            width: 35px;
-            height: 35px;
-            font-size: 1.1rem;
-          }
-        }
-
-        @media (max-width: 360px) {
-          .footer-main {
-            gap: 1.2rem;
-            padding: 2rem 0 1rem;
-          }
-
-          .footer-section h3 {
-            font-size: 1rem;
-          }
-
-          .social-link {
-            width: 28px;
-            height: 28px;
-          }
-
-          .back-to-top {
-            width: 32px;
-            height: 32px;
-            font-size: 1rem;
-          }
+          .footer-main { grid-template-columns: 1fr; gap: 1.5rem; }
+          .social-links { justify-content: flex-start; }
+          .back-to-top { bottom: 16px; right: 16px; width: 40px; height: 40px; font-size: 1.1rem; }
         }
       `}</style>
     </footer>

@@ -3,6 +3,7 @@ import { ThemeContext } from './context/ThemeContext'
 import Navbar from './components/navbar'
 import Hero from './components/hero'
 import About from './components/about'
+import Experience from './components/experience'
 import Skills from './components/skills'
 import Projects from './components/projects'
 import Contact from './components/contact'
@@ -11,25 +12,20 @@ import './App.css'
 
 function App() {
   const [isLoading, setIsLoading] = useState(true)
-  const [theme, setTheme] = useState('light')
-
-  useEffect(() => {
-    // Check for saved theme preference or default to light
-    const savedTheme = localStorage.getItem('theme') || 'light'
-    setTheme(savedTheme)
-    
-    // Simulate loading time
-    setTimeout(() => setIsLoading(false), 1000)
-  }, [])
+  const [theme] = useState('dark')
 
   useEffect(() => {
     // Apply theme to document
-    document.documentElement.setAttribute('data-theme', theme)
-    localStorage.setItem('theme', theme)
-  }, [theme])
+    document.documentElement.setAttribute('data-theme', 'dark')
+    localStorage.setItem('theme', 'dark')
+    
+    // Simulate loading time
+    const timer = setTimeout(() => setIsLoading(false), 1000)
+    return () => clearTimeout(timer)
+  }, [])
 
   const toggleTheme = () => {
-    setTheme(prev => prev === 'light' ? 'dark' : 'light')
+    // Locked to dark mode
   }
 
   if (isLoading) {
@@ -48,8 +44,9 @@ function App() {
         <main>
           <Hero />
           <About />
-          <Skills />
+          <Experience />
           <Projects />
+          <Skills />
           <Contact />
         </main>
         <Footer />

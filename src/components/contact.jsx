@@ -84,7 +84,7 @@ const Contact = () => {
       icon: "📱",
       title: "Phone",
       value: "+92 3703550503",
-      link: "tel:+923703550503"
+      link: "tel:+92-3703550503"
     },
     {
       icon: "📍",
@@ -223,7 +223,7 @@ const Contact = () => {
       <style>{`
         .contact-section {
           background: var(--bg-primary); 
-          padding: 100px 0;
+          padding: 70px 0;
         }
         .contact-intro {
           text-align: center;

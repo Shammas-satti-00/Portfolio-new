@@ -1,8 +1,9 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 
 const Projects = () => {
   const [isVisible, setIsVisible] = useState(false)
   const [activeFilter, setActiveFilter] = useState('all')
+  const sliderRef = useRef(null)
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -22,24 +23,54 @@ const Projects = () => {
     return () => observer.disconnect()
   }, [])
 
+  const scrollLeft = () => {
+    if (sliderRef.current) {
+      sliderRef.current.scrollBy({
+        left: -370,
+        behavior: 'smooth'
+      })
+    }
+  }
+
+  const scrollRight = () => {
+    if (sliderRef.current) {
+      sliderRef.current.scrollBy({
+        left: 370,
+        behavior: 'smooth'
+      })
+    }
+  }
+
   const projects = [
     {
-      id: 1,
-      title: "VR Game Environment",
-      description: "Immersive virtual reality game developed using Unity 3D, XR toolkit and C#.",
-      image: "vr.jpeg",
-      technologies: ["C#", "XR Toolkit", "Unity 3D"],
+      id: 7,
+      title: "Mars Vanguard",
+      description: "Enter a fast-paced 3D space shooter where you battle endless waves of enemy ships in intense arcade-style combat.",
+      image: "Mars vanguard.webp",
+      technologies: ["Unity 3D", "C#", "Level Design", "Game Optimization"],
       category: "Games",
-      githubUrl: "https://github.com/Shammas-satti-00/VR-Tutorial-Unity-3D"
+      linkType: "playstore",
+      projectUrl: "https://play.google.com/store/apps/details?id=com.veeivs.marsvanguard"
     },
     {
-      id: 2,
-      title: "Super Mario Game",
-      description: "Created a 2D Mario-style platformer game using OpenGL in C++, featuring custom graphics and interactive gameplay mechanics.",
-      image: "mario.jpeg",
-      technologies: ["C++", "OpenGL"],
+      id: 8,
+      title: "Airplane Skybound Simulator",
+      description: "Become a skilled pilot, control powerful aircraft, and complete exciting missions as you explore the world from above.",
+      image: "Airplane skybound simulaotr.png",
+      technologies: ["Unity 3D", "C#", "Physics Simulation", "Flight Controls"],
       category: "Games",
-      githubUrl: "https://github.com/Shammas-satti-00/Flappy-Mario-Game-in-C-with-opengl-"
+      linkType: "playstore",
+      projectUrl: "https://play.google.com/store/apps/details?id=com.vgl.airplane.skybound.simulator.game&pli=1"
+    },
+    {
+      id: 1,
+      title: "3D Physics & VR Game Environment",
+      description: "Interactive 3D simulation environment built in Unity, focusing on physics-based controls and optimization.",
+      image: "vr.jpeg",
+      technologies: ["C#", "Unity 3D", "Physics Engine"],
+      category: "Games",
+      linkType: "github",
+      projectUrl: "https://github.com/Shammas-satti-00/VR-Tutorial-Unity-3D"
     },
     {
       id: 3,
@@ -48,16 +79,38 @@ const Projects = () => {
       image: "shape.png",
       technologies: ["Unity 3D", "C#"],
       category: "Games",
-      githubUrl: "https://github.com/Shammas-satti-00/Portfolio-Website.git"
+      linkType: "github",
+      projectUrl: "https://github.com/Shammas-satti-00/Portfolio-Website.git"
+    },
+    {
+      id: 9,
+      title: "Tick-Tack Multiplayer (Unity 2D)",
+      description: "A 2D multiplayer Tic-Tac-Toe style game built in Unity using Photon PUN for real-time online gameplay. Synchronization Remaining!",
+      image: "tictac.png",
+      technologies: ["Unity 2D", "C#", "Photon PUN", "Multiplayer"],
+      category: "Games",
+      linkType: "github",
+      projectUrl: "https://github.com/Shammas-satti-00/Tick-Tack-Multiplayer-Unity-3D"
+    },
+    {
+      id: 2,
+      title: "Super Mario Game",
+      description: "Created a 2D Mario-style platformer game using OpenGL in C++, featuring custom graphics and interactive gameplay mechanics.",
+      image: "mario.jpeg",
+      technologies: ["C++", "OpenGL"],
+      category: "Games",
+      linkType: "github",
+      projectUrl: "https://github.com/Shammas-satti-00/Flappy-Mario-Game-in-C-with-opengl-"
     },
     {
       id: 6,
       title: "AI Based Deepfake Detection System",
       description: "Deepfake Detection and Sentiment Analysis system using Python, OpenCV, TensorFlow, and Natural Language Processing (NLP) techniques.",
       image: "deepfake.jpeg",
-      technologies: ["Next.js", "NLP-Model", "RestNet", "Python", "Responsive Design"],
+      technologies: ["Next.js", "NLP-Model", "ResNet", "Python", "Responsive Design"],
       category: "fullstack",
-      githubUrl: "https://github.com/Shammas-satti-00/AI-Powered-Deepfake-Detection-with-Sentiment-Analysis"
+      linkType: "github",
+      projectUrl: "https://github.com/Shammas-satti-00/AI-Powered-Deepfake-Detection-with-Sentiment-Analysis"
     },
     {
       id: 5,
@@ -66,7 +119,8 @@ const Projects = () => {
       image: "skill-matcher.jpeg",
       technologies: ["NLP", "PyTorch", "Python", "MongoDB"],
       category: "fullstack",
-      githubUrl: "https://github.com/Shammas-satti-00/Ai-Powered-Skill-Matcher"
+      linkType: "github",
+      projectUrl: "https://github.com/Shammas-satti-00/Ai-Powered-Skill-Matcher"
     },
     {
       id: 4,
@@ -75,9 +129,9 @@ const Projects = () => {
       image: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=500&h=300&fit=crop",
       technologies: ["HTML", "CSS", "JavaScript"],
       category: "fullstack",
-      githubUrl: "https://github.com/Shammas-satti-00/Web-Development-Project"
+      linkType: "github",
+      projectUrl: "https://github.com/Shammas-satti-00/Web-Development-Project"
     }
-    
   ]
 
   const filters = [
@@ -86,18 +140,18 @@ const Projects = () => {
     { id: 'fullstack', label: 'Full Stack' }
   ]
 
-  const filteredProjects = activeFilter === 'all' 
-    ? projects 
+  const filteredProjects = activeFilter === 'all'
+    ? projects
     : projects.filter(project => project.category === activeFilter)
 
   return (
     <section id="projects" className="projects-section">
       <div className="section-container">
         <h2 className="section-title">My Projects</h2>
-        
+
         <div className={`projects-intro ${isVisible ? 'fade-in' : ''}`}>
           <p>
-            Here are some of the projects I've worked on. Each project represents a unique challenge 
+            Here are some of the projects I've worked on. Each project represents a unique challenge
             and showcases different aspects of my technical skills and problem-solving abilities.
           </p>
         </div>
@@ -114,36 +168,53 @@ const Projects = () => {
           ))}
         </div>
 
-        <div className="projects-grid">
-          {filteredProjects.map((project, index) => (
-            <div 
-              key={project.id} 
-              className={`project-card ${isVisible ? 'slide-in-left' : ''}`}
-              style={{ animationDelay: `${index * 0.1}s` }}
-            >
-              <div className="project-image">
-                <img src={project.image} alt={project.title} />
-                <div className="project-overlay">
-                  <div className="project-links">
-                    <a href={project.githubUrl} className="project-link" target="_blank" rel="noopener noreferrer">
-                      GitHub
-                    </a>
+        <div className="slider-container-outer">
+          <button className="slider-arrow prev" onClick={scrollLeft} aria-label="Previous Project">
+            ‹
+          </button>
+
+          <div className="projects-slider-wrapper" ref={sliderRef}>
+            <div className="projects-grid">
+              {filteredProjects.map((project, index) => (
+                <div
+                  key={project.id}
+                  className={`project-card ${isVisible ? 'slide-in-left' : ''}`}
+                  style={{ animationDelay: `${index * 0.1}s` }}
+                >
+                  <div className="project-image">
+                    <img src={project.image} alt={project.title} />
+                    <div className="project-overlay">
+                      <div className="project-links">
+                        <a
+                          href={project.projectUrl}
+                          className={`project-link ${project.linkType}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          {project.linkType === 'playstore' ? '🤖 Play Store' : '🐙 GitHub'}
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="project-content">
+                    <h3 className="project-title">{project.title}</h3>
+                    <p className="project-description">{project.description}</p>
+
+                    <div className="project-technologies">
+                      {project.technologies.map((tech, techIndex) => (
+                        <span key={techIndex} className="tech-tag">{tech}</span>
+                      ))}
+                    </div>
                   </div>
                 </div>
-              </div>
-              
-              <div className="project-content">
-                <h3 className="project-title">{project.title}</h3>
-                <p className="project-description">{project.description}</p>
-                
-                <div className="project-technologies">
-                  {project.technologies.map((tech, techIndex) => (
-                    <span key={techIndex} className="tech-tag">{tech}</span>
-                  ))}
-                </div>
-              </div>
+              ))}
             </div>
-          ))}
+          </div>
+
+          <button className="slider-arrow next" onClick={scrollRight} aria-label="Next Project">
+            ›
+          </button>
         </div>
 
         <div className={`projects-cta ${isVisible ? 'fade-in' : ''}`}>
@@ -158,15 +229,13 @@ const Projects = () => {
       <style jsx>{`
         .projects-section {
           background: var(--bg-secondary);
-          padding: 100px 0;
+          padding: 70px 0;
+          align-items: flex-start;
         }
 
         .projects-intro {
           text-align: center;
-          margin-bottom: 3rem;
-          opacity: 0;
-          transform: translateY(30px);
-          animation: fadeIn 0.8s ease forwards;
+          margin-bottom: 1.5rem;
         }
 
         .projects-intro p {
@@ -180,49 +249,105 @@ const Projects = () => {
         .filter-buttons {
           display: flex;
           justify-content: center;
-          gap: 1rem;
-          margin-bottom: 3rem;
+          gap: 0.75rem;
+          margin-bottom: 2rem;
           flex-wrap: wrap;
-          opacity: 0;
-          transform: translateY(30px);
-          animation: fadeIn 0.8s ease forwards;
-          animation-delay: 0.2s;
         }
 
         .filter-btn {
-          padding: 0.8rem 1.5rem;
-          border: 2px solid var(--border-color);
+          padding: 0.6rem 1.4rem;
+          border: 1.5px solid var(--border-color);
           background: var(--card-bg);
           color: var(--text-secondary);
           border-radius: 25px;
-          font-weight: 500;
+          font-size: 0.88rem;
+          font-weight: 600;
+          font-family: inherit;
           cursor: pointer;
-          transition: all 0.3s ease;
+          transition: all 0.2s ease;
         }
 
         .filter-btn:hover,
         .filter-btn.active {
-          background: var(--accent-primary);
+          background: var(--accent-gradient);
           color: white;
-          border-color: var(--accent-primary);
+          border-color: transparent;
+          box-shadow: 0 4px 16px rgba(102, 126, 234, 0.35);
+        }
+
+        .slider-container-outer {
+          position: relative;
+          width: 100%;
+          margin: 0 auto;
+          padding: 0 45px;
+        }
+
+        .projects-slider-wrapper {
+          overflow-x: auto;
+          scroll-behavior: smooth;
+          scroll-snap-type: x mandatory;
+          scrollbar-width: none;
+          padding: 1rem 0;
+        }
+
+        .projects-slider-wrapper::-webkit-scrollbar {
+          display: none;
         }
 
         .projects-grid {
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-          gap: 2rem;
-          margin-bottom: 4rem;
+          display: flex;
+          gap: 1.5rem;
+          margin-bottom: 1.5rem;
+          width: max-content;
         }
 
         .project-card {
+          flex: 0 0 340px;
+          scroll-snap-align: start;
           background: var(--card-bg);
-          border-radius: 15px;
+          border: 1px solid var(--border-color);
+          border-radius: 14px;
           overflow: hidden;
-          box-shadow: 0 10px 30px var(--shadow-light);
-          transition: transform 0.3s ease, box-shadow 0.3s ease;
+          box-shadow: 0 8px 24px var(--shadow-light);
+          transition: transform 0.25s ease, box-shadow 0.25s ease;
           opacity: 0;
-          transform: translateX(-50px);
-          animation: slideInLeft 0.8s ease forwards;
+          transform: translateX(-40px);
+          animation: slideInLeft 0.7s ease forwards;
+        }
+
+        .slider-arrow {
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%);
+          width: 50px;
+          height: 50px;
+          border-radius: 50%;
+          background: rgba(26, 32, 44, 0.9);
+          border: 1.5px solid var(--border-color);
+          color: white;
+          font-size: 2rem;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          z-index: 10;
+          transition: all 0.3s ease;
+          box-shadow: 0 4px 15px var(--shadow-light);
+        }
+
+        .slider-arrow.prev {
+          left: -10px;
+        }
+
+        .slider-arrow.next {
+          right: -10px;
+        }
+
+        .slider-arrow:hover {
+          background: var(--accent-gradient);
+          color: white;
+          border-color: transparent;
+          transform: translateY(-50%) scale(1.1);
         }
 
         .project-card:hover {
@@ -272,17 +397,38 @@ const Projects = () => {
 
         .project-link {
           padding: 0.8rem 1.5rem;
-          background: white;
-          color: var(--accent-primary);
           text-decoration: none;
           border-radius: 25px;
           font-weight: 600;
           transition: all 0.3s ease;
+          display: inline-flex;
+          align-items: center;
+          gap: 0.5rem;
         }
 
-        .project-link:hover {
-          background: var(--text-primary);
+        .project-link.playstore {
+          background: #34a853;
           color: white;
+          box-shadow: 0 4px 15px rgba(52, 168, 83, 0.4);
+        }
+
+        .project-link.playstore:hover {
+          background: #2d8e47;
+          transform: scale(1.05);
+          box-shadow: 0 6px 20px rgba(52, 168, 83, 0.6);
+        }
+
+        .project-link.github {
+          background: #1a202c;
+          color: white;
+          border: 1px solid var(--border-color);
+          box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .project-link.github:hover {
+          background: #2d3748;
+          transform: scale(1.05);
+          box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
         }
 
         .project-content {
@@ -297,6 +443,7 @@ const Projects = () => {
         }
 
         .project-description {
+          font-size: 0.88rem;
           color: var(--text-muted);
           line-height: 1.6;
           margin-bottom: 1rem;
@@ -320,13 +467,11 @@ const Projects = () => {
         .projects-cta {
           text-align: center;
           background: var(--card-bg);
-          padding: 3rem;
-          border-radius: 15px;
-          box-shadow: 0 10px 30px var(--shadow-light);
-          opacity: 0;
-          transform: translateY(30px);
-          animation: fadeIn 0.8s ease forwards;
-          animation-delay: 0.4s;
+          border: 1px solid var(--border-color);
+          padding: 2.5rem;
+          border-radius: 14px;
+          box-shadow: 0 8px 24px var(--shadow-light);
+          margin-top: 2rem;
         }
 
         .projects-cta h3 {
@@ -343,11 +488,6 @@ const Projects = () => {
         }
 
         @media (max-width: 1024px) {
-          .projects-grid {
-            grid-template-columns: repeat(2, 1fr);
-            gap: 2rem;
-          }
-
           .filter-buttons {
             gap: 0.8rem;
           }
@@ -360,8 +500,11 @@ const Projects = () => {
 
         @media (max-width: 768px) {
           .projects-grid {
-            grid-template-columns: 1fr;
-            gap: 1.5rem;
+            gap: 1.2rem;
+          }
+
+          .slider-arrow {
+            display: none;
           }
 
           .filter-buttons {
@@ -416,6 +559,10 @@ const Projects = () => {
         }
 
         @media (max-width: 480px) {
+          .project-card {
+            flex: 0 0 calc(100vw - 40px);
+          }
+
           .projects-cta h3 {
             font-size: 1.5rem;
           }

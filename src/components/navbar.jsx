@@ -1,17 +1,36 @@
-import { useState, useEffect, useContext } from 'react'
-import { ThemeContext } from '../context/ThemeContext'
+import { useState, useEffect } from 'react'
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
-  const { theme, toggleTheme } = useContext(ThemeContext)
+  const [activeSection, setActiveSection] = useState('home')
+
+  const navItems = [
+    { id: 'home',       label: 'Home',       icon: '🏠' },
+    { id: 'about',      label: 'About',      icon: '👤' },
+    { id: 'experience', label: 'Experience', icon: '💼' },
+    { id: 'projects',   label: 'Projects',   icon: '🎮' },
+    { id: 'skills',     label: 'Skills',     icon: '⚡' },
+    { id: 'contact',    label: 'Contact',    icon: '📧' },
+  ]
 
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50)
+
+      // Scroll-spy: find which section is currently in view
+      const sections = navItems.map(item => document.getElementById(item.id)).filter(Boolean)
+      let current = 'home'
+      sections.forEach(section => {
+        const rect = section.getBoundingClientRect()
+        if (rect.top <= 120) {
+          current = section.id
+        }
+      })
+      setActiveSection(current)
     }
 
-    window.addEventListener('scroll', handleScroll)
+    window.addEventListener('scroll', handleScroll, { passive: true })
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
@@ -23,45 +42,37 @@ const Navbar = () => {
     setIsMobileMenuOpen(false)
   }
 
-  const navItems = [
-    { id: 'home', label: 'Home' },
-    { id: 'about', label: 'About' },
-    { id: 'skills', label: 'Skills' },
-    { id: 'projects', label: 'Projects' },
-    { id: 'contact', label: 'Contact' }
-  ]
-
   return (
     <nav className={`navbar ${isScrolled ? 'scrolled' : ''}`}>
       <div className="nav-container">
-        <div className="nav-logo">
-          <h2>Shammas</h2>
+        {/* Logo */}
+        <div className="nav-logo" onClick={() => scrollToSection('home')}>
+          <span className="logo-bracket">&lt;</span>
+          Shammas
+          <span className="logo-bracket">/&gt;</span>
         </div>
 
+        {/* Desktop links */}
         <div className={`nav-menu ${isMobileMenuOpen ? 'active' : ''}`}>
           {navItems.map((item) => (
             <a
               key={item.id}
               onClick={() => scrollToSection(item.id)}
-              className="nav-link"
+              className={`nav-link ${activeSection === item.id ? 'nav-link-active' : ''}`}
             >
-              {item.label}
+              <span className="nav-link-icon">{item.icon}</span>
+              <span className="nav-link-label">{item.label}</span>
+              {activeSection === item.id && <span className="nav-indicator" />}
             </a>
           ))}
         </div>
 
+        {/* Hamburger */}
         <div className="nav-actions">
-          <button 
-            className="theme-toggle"
-            onClick={toggleTheme}
-            title={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
-          >
-            {theme === 'light' ? '🌙' : '☀️'}
-          </button>
-          
-          <div 
+          <div
             className={`hamburger ${isMobileMenuOpen ? 'active' : ''}`}
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            aria-label="Toggle menu"
           >
             <span></span>
             <span></span>
@@ -76,149 +87,190 @@ const Navbar = () => {
           top: 0;
           left: 0;
           right: 0;
-          background: var(--navbar-bg);
-          backdrop-filter: blur(10px);
+          background: transparent;
+          backdrop-filter: none;
           z-index: 1000;
-          transition: all 0.3s ease;
-          padding: 1rem 0;
+          transition: all 0.35s ease;
+          padding: 1.1rem 0;
+          border-bottom: 1px solid transparent;
         }
 
         .navbar.scrolled {
-          background: var(--navbar-bg);
-          box-shadow: 0 2px 20px var(--navbar-shadow);
+          background: rgba(10, 13, 20, 0.92);
+          backdrop-filter: blur(20px);
+          -webkit-backdrop-filter: blur(20px);
+          border-bottom-color: var(--border-color);
+          box-shadow: 0 4px 30px rgba(0,0,0,0.4);
+          padding: 0.7rem 0;
         }
 
+        /* ── Container ── */
         .nav-container {
           max-width: 1200px;
           margin: 0 auto;
-          padding: 0 20px;
+          padding: 0 24px;
           display: flex;
           justify-content: space-between;
           align-items: center;
         }
 
-        .nav-logo h2 {
-          font-size: 1.8rem;
+        /* ── Logo ── */
+        .nav-logo {
+          font-size: 1.35rem;
           font-weight: 700;
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          gap: 2px;
+          color: var(--text-primary);
+          letter-spacing: -0.5px;
+          transition: opacity 0.2s;
+          user-select: none;
+        }
+
+        .nav-logo:hover { opacity: 0.75; }
+
+        .logo-bracket {
           background: var(--accent-gradient);
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
           background-clip: text;
+          font-family: 'JetBrains Mono', monospace;
+          font-weight: 600;
+          font-size: 1.2rem;
         }
 
+        /* ── Nav menu (desktop) ── */
         .nav-menu {
           display: flex;
-          gap: 2rem;
+          gap: 0.2rem;
           align-items: center;
         }
 
+        /* ── Nav link ── */
         .nav-link {
-          color: var(--text-primary);
+          position: relative;
+          display: flex;
+          align-items: center;
+          gap: 0.35rem;
+          color: var(--text-muted);
           text-decoration: none;
           font-weight: 500;
+          font-size: 0.88rem;
           cursor: pointer;
-          transition: color 0.3s ease;
-          position: relative;
+          transition: color 0.2s ease, background 0.2s ease;
+          padding: 0.45rem 0.85rem;
+          border-radius: 8px;
+          letter-spacing: 0.01em;
+          user-select: none;
+        }
+
+        .nav-link-icon {
+          font-size: 0.85rem;
+          opacity: 0.7;
+          transition: opacity 0.2s;
         }
 
         .nav-link:hover {
-          color: var(--accent-primary);
+          color: var(--text-primary);
+          background: rgba(102, 126, 234, 0.08);
         }
 
-        .nav-link::after {
-          content: '';
+        .nav-link:hover .nav-link-icon {
+          opacity: 1;
+        }
+
+        /* Active state */
+        .nav-link-active {
+          color: var(--accent-primary) !important;
+          background: rgba(102, 126, 234, 0.12) !important;
+          font-weight: 600;
+        }
+
+        .nav-link-active .nav-link-icon {
+          opacity: 1;
+        }
+
+        /* Glowing dot indicator below active link */
+        .nav-indicator {
           position: absolute;
-          bottom: -5px;
-          left: 0;
-          width: 0;
-          height: 2px;
-          background: var(--accent-gradient);
-          transition: width 0.3s ease;
+          bottom: -2px;
+          left: 50%;
+          transform: translateX(-50%);
+          width: 4px;
+          height: 4px;
+          border-radius: 50%;
+          background: var(--accent-primary);
+          box-shadow: 0 0 6px var(--accent-primary);
         }
 
-        .nav-link:hover::after {
-          width: 100%;
-        }
-
+        /* ── Actions ── */
         .nav-actions {
           display: flex;
           align-items: center;
           gap: 1rem;
         }
 
-        .theme-toggle {
-          background: var(--card-bg);
-          border: 2px solid var(--border-color);
-          color: var(--text-primary);
-          width: 40px;
-          height: 40px;
-          border-radius: 50%;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          cursor: pointer;
-          transition: all 0.3s ease;
-          font-size: 1.2rem;
-        }
-
-        .theme-toggle:hover {
-          background: var(--accent-primary);
-          color: white;
-          border-color: var(--accent-primary);
-          transform: scale(1.1);
-        }
-
+        /* ── Hamburger ── */
         .hamburger {
           display: none;
           flex-direction: column;
           cursor: pointer;
-          gap: 4px;
+          gap: 5px;
+          padding: 4px;
         }
 
         .hamburger span {
-          width: 25px;
-          height: 3px;
-          background: var(--text-primary);
+          width: 22px;
+          height: 2px;
+          background: var(--text-secondary);
           transition: all 0.3s ease;
+          border-radius: 2px;
         }
 
-        .hamburger.active span:nth-child(1) {
-          transform: rotate(45deg) translate(5px, 5px);
-        }
+        .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+        .hamburger.active span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+        .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(7px, -6px); }
 
-        .hamburger.active span:nth-child(2) {
-          opacity: 0;
-        }
-
-        .hamburger.active span:nth-child(3) {
-          transform: rotate(-45deg) translate(7px, -6px);
-        }
-
+        /* ── Mobile ── */
         @media (max-width: 768px) {
           .nav-menu {
             position: fixed;
-            top: 80px;
+            top: 0;
             left: 0;
             right: 0;
-            background: var(--navbar-bg);
-            backdrop-filter: blur(10px);
+            bottom: 0;
+            background: rgba(10, 13, 20, 0.97);
+            backdrop-filter: blur(20px);
             flex-direction: column;
-            padding: 2rem;
-            gap: 1.5rem;
-            transform: translateY(-100%);
+            justify-content: center;
+            align-items: center;
+            gap: 0.75rem;
+            transform: translateX(100%);
             opacity: 0;
             visibility: hidden;
-            transition: all 0.3s ease;
+            transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
           }
 
           .nav-menu.active {
-            transform: translateY(0);
+            transform: translateX(0);
             opacity: 1;
             visibility: visible;
           }
 
+          .nav-link {
+            font-size: 1.15rem;
+            padding: 0.7rem 2rem;
+            gap: 0.6rem;
+          }
+
+          .nav-link-icon { font-size: 1.1rem; }
+
+          .nav-indicator { display: none; }
+
           .hamburger {
             display: flex;
+            z-index: 1001;
           }
         }
       `}</style>

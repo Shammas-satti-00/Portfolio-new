@@ -2,359 +2,375 @@ import { useState, useEffect } from 'react'
 
 const Skills = () => {
   const [isVisible, setIsVisible] = useState(false)
+  const [activeCard, setActiveCard] = useState(0)
 
   useEffect(() => {
     const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true)
-        }
-      },
-      { threshold: 0.3 }
+      ([entry]) => { if (entry.isIntersecting) setIsVisible(true) },
+      { threshold: 0.15 }
     )
-
     const element = document.getElementById('skills')
-    if (element) {
-      observer.observe(element)
-    }
-
+    if (element) observer.observe(element)
     return () => observer.disconnect()
   }, [])
 
   const skillCategories = [
     {
-      title: "Game Development",
+      title: 'Game Dev Core',
+      icon: '🎮',
+      color: '#667eea',
+      desc: 'Building immersive, performant gameplay using industry-standard tools.',
       skills: [
-        { name: "Unity 3D", level: 80 },
-        { name: "C#", level: 70 },
-        { name: "OpenGl", level: 90 },
-        { name: "C++", level: 85 },
-        { name: "Core", level: 80 },
+        { name: 'Unity 3D / 2D', detail: 'Game loop architecture, physics integration, prefab systems, UI Canvas' },
+        { name: 'C# Scripting', detail: 'Advanced OOP, delegates, events, coroutines, clean architecture' },
+        { name: 'Weapon & Combat Systems', detail: 'Modular weapons, rotation calc, cooldowns, firing VFX' },
+        { name: 'Level Design', detail: '3D scene construction, chunk-based layouts, material application' },
+      ],
+    },
+    {
+      title: 'Graphics & Low-Level',
+      icon: '⚡',
+      color: '#06b6d4',
+      desc: 'Understanding graphics pipelines, physics engines, and deep optimizations.',
+      skills: [
+        { name: 'C++ Programming', detail: 'Memory management, data structures, algorithm efficiency' },
+        { name: 'OpenGL / Shaders', detail: '2D/3D custom graphics rendering, matrix math, coordinate spaces' },
+        { name: 'Physics & Vectors', detail: 'Raycasting, rigidbodies, velocity, flight simulation movement' },
+        { name: 'Optimization & Debugging', detail: 'Unity Profiler, GC reduction, level chunking, LOD systems' },
+      ],
+    },
+    {
+      title: 'AI & Workflows',
+      icon: '🧠',
+      color: '#a78bfa',
+      desc: 'Incorporating intelligent features, team workflows, and full-stack utilities.',
+      skills: [
+        { name: 'Game AI Systems', detail: 'State machines, pathfinding, NPC behavior, combat tracking' },
+        { name: 'Git / Version Control', detail: 'GitHub, branching workflows, conflict resolution' },
+        { name: 'Python & NLP', detail: 'Integrating sentiment models, automation scripting' },
+        { name: 'Node.js & MongoDB', detail: 'Backend support, database management, simple REST APIs' },
+      ],
+    },
+  ]
 
-      ]
-    },
-    {
-      title: "AI & Backend Development",
-      skills: [
-        { name: "Python", level: 80 },
-        { name: "NLP", level: 80 },
-        { name: "Node.js", level: 90 },
-        { name: "MongoDB ", level: 75 },
-        { name: "Flask", level: 70 },
-        
-      ]
-    },
-    {
-      title: "Tools & Technologies",
-      skills: [
-        { name: "GitHub", level: 90 },
-        {name: "Unity 3D", level: 90},
-        {name: "OpenGL", level: 80},
-        {name: "Java", level: 80},
-        {name: "Python", level: 85},
-      ]
-    }
+  const tags = [
+    'Gameplay Programming', 'Physics Simulation', 'Level Generation',
+    'Weapon Systems', 'Performance Optimization', 'Vector Mathematics',
+    'Custom Tool Development', 'Chunk-Based Levels', 'Unity Profiling', 'OpenGL Rendering',
+    'Photon PUN', 'State Machines',
   ]
 
   return (
     <section id="skills" className="skills-section">
       <div className="section-container">
         <h2 className="section-title">Skills & Expertise</h2>
-        
-        <div className="skills-content">
-          <div className={`skills-intro ${isVisible ? 'fade-in' : ''}`}>
-            <h3>Technical Proficiency</h3>
-            <p>
-              I’ve developed expertise across the full game development pipeline from designing immersive gameplay and intuitive user experiences to implementing robust systems, physics, and AI-driven mechanics.
-              Here's a breakdown of my technical skills and proficiency levels.
-            </p>
-          </div>
+        <p className="section-subtitle">
+          Specialized in gameplay engineering, physics simulations, and interactive systems — built for real shipped titles.
+        </p>
 
-          <div className="skills-grid">
-            {skillCategories.map((category, categoryIndex) => (
-              <div 
-                key={categoryIndex} 
-                className={`skill-category ${isVisible ? 'slide-in-left' : ''}`}
-                style={{ animationDelay: `${categoryIndex * 0.2}s` }}
-              >
-                <h4 className="category-title">{category.title}</h4>
-                <div className="skills-list">
-                  {category.skills.map((skill, skillIndex) => (
-                    <div key={skillIndex} className="skill-item">
-                      <div className="skill-header">
-                        <span className="skill-name">{skill.name}</span>
-                        <span className="skill-level">{skill.level}%</span>
-                      </div>
-                      <div className="skill-bar">
-                        <div 
-                          className="skill-progress"
-                          style={{ width: `${skill.level}%` }}
-                        ></div>
-                      </div>
-                    </div>
-                  ))}
+        {/* ── Category Tabs ── */}
+        <div className={`skills-tabs ${isVisible ? 'tabs-visible' : ''}`}>
+          {skillCategories.map((cat, i) => (
+            <button
+              key={i}
+              className={`skill-tab ${activeCard === i ? 'skill-tab-active' : ''}`}
+              style={{ '--tab-color': cat.color }}
+              onClick={() => setActiveCard(i)}
+            >
+              <span className="tab-icon">{cat.icon}</span>
+              <span>{cat.title}</span>
+            </button>
+          ))}
+        </div>
+
+        {/* ── Active Skill Panel ── */}
+        <div className={`skills-panel ${isVisible ? 'panel-visible' : ''}`}>
+          {skillCategories.map((cat, i) => (
+            <div
+              key={i}
+              className={`skill-panel-content ${activeCard === i ? 'panel-active' : ''}`}
+            >
+              <div className="panel-header" style={{ '--panel-color': cat.color }}>
+                <div className="panel-icon">{cat.icon}</div>
+                <div>
+                  <h3 className="panel-title">{cat.title}</h3>
+                  <p className="panel-desc">{cat.desc}</p>
                 </div>
               </div>
-            ))}
-          </div>
 
-          <div className={`additional-skills ${isVisible ? 'slide-in-right' : ''}`}>
-            <h4>Additional Skills</h4>
-            <div className="skills-tags">
-              <span className="skill-tag">Gameplay Programming</span>
-              <span className="skill-tag">Physics Simulation</span>
-              <span className="skill-tag">AI Programming</span>
-              <span className="skill-tag">Level Design & World Building</span>
-              <span className="skill-tag">VR/AR Development</span>
-              <span className="skill-tag">Testing</span>
-              <span className="skill-tag">Audio Integration</span>
-              <span className="skill-tag">Three.js</span>
-              <span className="skill-tag">Version Control</span>
+              <div className="panel-skills-grid">
+                {cat.skills.map((skill, si) => (
+                  <div key={si} className="panel-skill-item" style={{ animationDelay: `${si * 0.07}s` }}>
+                    <div className="psi-left">
+                      <div className="psi-dot" style={{ background: cat.color }}></div>
+                    </div>
+                    <div>
+                      <p className="psi-name">{skill.name}</p>
+                      <p className="psi-detail">{skill.detail}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
+          ))}
+        </div>
+
+        {/* ── Specialization Tags ── */}
+        <div className={`spec-box ${isVisible ? 'spec-visible' : ''}`}>
+          <h4 className="spec-heading">Areas of Specialization</h4>
+          <div className="spec-tags">
+            {tags.map((tag, i) => (
+              <span key={i} className="spec-tag" style={{ animationDelay: `${i * 0.04}s` }}>
+                {tag}
+              </span>
+            ))}
           </div>
         </div>
       </div>
 
       <style jsx>{`
         .skills-section {
-          background: var(--bg-primary);
-          padding: 100px 0;
+          background: var(--bg-secondary);
+          padding: 70px 0;
+          align-items: flex-start;
         }
 
-        .skills-content {
-          max-width: 1000px;
-          margin: 0 auto;
-        }
-
-        .skills-intro {
-          text-align: center;
-          margin-bottom: 4rem;
+        /* ── Tabs ── */
+        .skills-tabs {
+          display: flex;
+          gap: 0.75rem;
+          margin-bottom: 2rem;
+          flex-wrap: wrap;
           opacity: 0;
-          transform: translateY(30px);
-          animation: fadeIn 0.8s ease forwards;
+          transform: translateY(20px);
         }
 
-        .skills-intro h3 {
-          font-size: 2rem;
+        .tabs-visible {
+          animation: fadeUp 0.6s ease forwards;
+        }
+
+        @keyframes fadeUp {
+          to { opacity: 1; transform: translateY(0); }
+        }
+
+        .skill-tab {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          padding: 0.65rem 1.4rem;
+          background: var(--card-bg);
+          border: 1px solid var(--border-color);
+          border-radius: 50px;
+          font-size: 0.9rem;
+          font-weight: 600;
+          font-family: inherit;
+          color: var(--text-muted);
+          cursor: pointer;
+          transition: all 0.25s ease;
+        }
+
+        .skill-tab:hover {
+          color: var(--text-primary);
+          border-color: var(--tab-color, var(--accent-primary));
+        }
+
+        .skill-tab-active {
+          background: var(--tab-color, var(--accent-primary));
+          border-color: var(--tab-color, var(--accent-primary));
+          color: white;
+          box-shadow: 0 4px 20px color-mix(in srgb, var(--tab-color, var(--accent-primary)) 40%, transparent);
+        }
+
+        .tab-icon { font-size: 1rem; }
+
+        /* ── Panel ── */
+        .skills-panel {
+          background: var(--card-bg);
+          border: 1px solid var(--border-color);
+          border-radius: 20px;
+          padding: 2.5rem;
+          margin-bottom: 2rem;
+          min-height: 320px;
+          position: relative;
+          overflow: hidden;
+          opacity: 0;
+          transform: translateY(24px);
+        }
+
+        .panel-visible {
+          animation: fadeUp 0.65s 0.1s ease forwards;
+        }
+
+        .skill-panel-content {
+          display: none;
+        }
+
+        .panel-active {
+          display: block;
+          animation: panelIn 0.35s ease forwards;
+        }
+
+        @keyframes panelIn {
+          from { opacity: 0; transform: translateY(12px); }
+          to   { opacity: 1; transform: translateY(0); }
+        }
+
+        .panel-header {
+          display: flex;
+          align-items: flex-start;
+          gap: 1.25rem;
+          margin-bottom: 2rem;
+          padding-bottom: 1.5rem;
+          border-bottom: 1px solid var(--border-color);
+        }
+
+        .panel-icon {
+          font-size: 2.2rem;
+          flex-shrink: 0;
+          background: var(--bg-tertiary);
+          width: 56px;
+          height: 56px;
+          border-radius: 14px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border: 1px solid var(--border-color);
+        }
+
+        .panel-title {
+          font-size: 1.5rem;
           font-weight: 700;
           color: var(--text-primary);
-          margin-bottom: 1rem;
+          margin-bottom: 0.4rem;
+          letter-spacing: -0.02em;
         }
 
-        .skills-intro p {
-          font-size: 1.1rem;
+        .panel-desc {
+          font-size: 0.92rem;
           color: var(--text-muted);
-          max-width: 600px;
-          margin: 0 auto;
-          line-height: 1.6;
+          line-height: 1.5;
         }
 
-        .skills-grid {
+        .panel-skills-grid {
           display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-          gap: 3rem;
-          margin-bottom: 4rem;
+          grid-template-columns: repeat(2, 1fr);
+          gap: 1.25rem;
         }
 
-        .skill-category {
+        .panel-skill-item {
+          display: flex;
+          gap: 0.9rem;
+          align-items: flex-start;
+          padding: 1rem 1.1rem;
           background: var(--bg-secondary);
-          padding: 2rem;
-          border-radius: 15px;
+          border-radius: 12px;
+          border: 1px solid var(--border-color);
+          transition: all 0.25s ease;
           opacity: 0;
-          transform: translateX(-50px);
-          animation: slideInLeft 0.8s ease forwards;
+          animation: fadeUp 0.4s ease forwards;
         }
 
-        .category-title {
-          font-size: 1.5rem;
-          font-weight: 600;
-          color: var(--text-primary);
-          margin-bottom: 1.5rem;
-          text-align: center;
+        .panel-active .panel-skill-item {
+          opacity: 0;
+          animation: fadeUp 0.4s ease forwards;
         }
 
-        .skills-list {
-          display: flex;
-          flex-direction: column;
-          gap: 1.5rem;
+        .panel-skill-item:hover {
+          border-color: var(--border-glow);
+          transform: translateY(-2px);
+          box-shadow: 0 6px 20px var(--shadow-glow);
         }
 
-        .skill-item {
-          width: 100%;
+        .psi-left {
+          padding-top: 4px;
+          flex-shrink: 0;
         }
 
-        .skill-header {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          margin-bottom: 0.5rem;
-        }
-
-        .skill-name {
-          font-weight: 500;
-          color: var(--text-secondary);
-        }
-
-        .skill-level {
-          font-size: 0.9rem;
-          color: var(--accent-primary);
-          font-weight: 600;
-        }
-
-        .skill-bar {
-          width: 100%;
+        .psi-dot {
+          width: 8px;
           height: 8px;
-          background: var(--border-color);
-          border-radius: 4px;
-          overflow: hidden;
+          border-radius: 50%;
+          margin-top: 3px;
         }
 
-        .skill-progress {
-          height: 100%;
-          background: var(--accent-gradient);
-          border-radius: 4px;
-          transition: width 1.5s ease;
+        .psi-name {
+          font-size: 0.97rem;
+          font-weight: 600;
+          color: var(--text-secondary);
+          margin-bottom: 0.2rem;
         }
 
-        .additional-skills {
-          background: var(--bg-secondary);
-          padding: 2rem;
-          border-radius: 15px;
+        .psi-detail {
+          font-size: 0.8rem;
+          color: var(--text-muted);
+          line-height: 1.45;
+        }
+
+        /* ── Spec Tags Box ── */
+        .spec-box {
+          background: var(--card-bg);
+          border: 1px solid var(--border-color);
+          border-radius: 20px;
+          padding: 2rem 2.5rem;
           text-align: center;
           opacity: 0;
-          transform: translateX(50px);
-          animation: slideInRight 0.8s ease forwards;
+          transform: translateY(20px);
         }
 
-        .additional-skills h4 {
-          font-size: 1.5rem;
-          font-weight: 600;
+        .spec-visible {
+          animation: fadeUp 0.65s 0.25s ease forwards;
+        }
+
+        .spec-heading {
+          font-size: 1.05rem;
+          font-weight: 700;
           color: var(--text-primary);
-          margin-bottom: 1.5rem;
+          margin-bottom: 1.25rem;
+          letter-spacing: -0.01em;
         }
 
-        .skills-tags {
+        .spec-tags {
           display: flex;
           flex-wrap: wrap;
-          gap: 0.8rem;
+          gap: 0.7rem;
           justify-content: center;
         }
 
-        .skill-tag {
-          background: var(--card-bg);
-          color: var(--accent-primary);
-          padding: 0.5rem 1rem;
-          border-radius: 25px;
-          font-size: 0.9rem;
+        .spec-tag {
+          font-size: 0.82rem;
           font-weight: 500;
-          border: 2px solid var(--border-color);
-          transition: all 0.3s ease;
+          font-family: 'JetBrains Mono', monospace;
+          padding: 5px 14px;
+          border-radius: 20px;
+          background: var(--bg-tertiary);
+          color: var(--text-secondary);
+          border: 1px solid var(--border-color);
+          cursor: default;
+          transition: all 0.2s ease;
+          opacity: 0;
+          animation: fadeUp 0.4s ease forwards;
         }
 
-        .skill-tag:hover {
-          background: var(--accent-primary);
-          color: white;
+        .spec-visible .spec-tag { opacity: 0; animation: fadeUp 0.4s ease forwards; }
+
+        .spec-tag:hover {
+          background: rgba(102, 126, 234, 0.15);
           border-color: var(--accent-primary);
+          color: var(--accent-primary);
           transform: translateY(-2px);
         }
 
-        @media (max-width: 1024px) {
-          .skills-grid {
-            gap: 2.5rem;
-          }
-
-          .skills-intro h3 {
-            font-size: 2.2rem;
-          }
-
-          .skill-category {
-            padding: 2rem;
-          }
-        }
-
+        /* ── Responsive ── */
         @media (max-width: 768px) {
-          .skills-grid {
-            grid-template-columns: 1fr;
-            gap: 2rem;
-          }
-
-          .skill-category {
-            padding: 1.5rem;
-          }
-
-          .skills-tags {
-            gap: 0.6rem;
-          }
-
-          .skill-tag {
-            font-size: 0.8rem;
-            padding: 0.4rem 0.8rem;
-          }
-
-          .skills-intro h3 {
-            font-size: 2rem;
-          }
-
-          .category-title {
-            font-size: 1.4rem;
-          }
-        }
-
-        @media (max-width: 640px) {
-          .skills-intro h3 {
-            font-size: 1.8rem;
-          }
-
-          .skill-category {
-            padding: 1.2rem;
-          }
-
-          .category-title {
-            font-size: 1.3rem;
-          }
-
-          .skill-tag {
-            font-size: 0.75rem;
-            padding: 0.3rem 0.6rem;
-          }
+          .skills-panel { padding: 1.5rem; }
+          .panel-skills-grid { grid-template-columns: 1fr; gap: 0.9rem; }
+          .panel-header { flex-direction: column; gap: 0.8rem; }
+          .skill-tab { padding: 0.55rem 1rem; font-size: 0.85rem; }
         }
 
         @media (max-width: 480px) {
-          .skills-intro h3 {
-            font-size: 1.8rem;
-          }
-
-          .category-title {
-            font-size: 1.3rem;
-          }
-
-          .skill-category {
-            padding: 1rem;
-          }
-
-          .skills-tags {
-            gap: 0.5rem;
-          }
-
-          .skill-tag {
-            font-size: 0.7rem;
-            padding: 0.3rem 0.5rem;
-          }
-        }
-
-        @media (max-width: 360px) {
-          .skills-intro h3 {
-            font-size: 1.6rem;
-          }
-
-          .category-title {
-            font-size: 1.2rem;
-          }
-
-          .skill-tag {
-            font-size: 0.65rem;
-            padding: 0.25rem 0.4rem;
-          }
+          .skills-tabs { gap: 0.5rem; }
+          .spec-box { padding: 1.5rem; }
         }
       `}</style>
     </section>
