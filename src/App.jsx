@@ -12,27 +12,29 @@ import './App.css'
 
 function App() {
   const [isLoading, setIsLoading] = useState(true)
-  const [theme] = useState('dark')
+  const [theme, setTheme] = useState(() => {
+    return localStorage.getItem('theme') || 'light'
+  })
 
   useEffect(() => {
-    // Apply theme to document
-    document.documentElement.setAttribute('data-theme', 'dark')
-    localStorage.setItem('theme', 'dark')
-    
-    // Simulate loading time
-    const timer = setTimeout(() => setIsLoading(false), 1000)
+    document.documentElement.setAttribute('data-theme', theme)
+    localStorage.setItem('theme', theme)
+  }, [theme])
+
+  useEffect(() => {
+    const timer = setTimeout(() => setIsLoading(false), 800)
     return () => clearTimeout(timer)
   }, [])
 
   const toggleTheme = () => {
-    // Locked to dark mode
+    setTheme(prev => prev === 'light' ? 'dark' : 'light')
   }
 
   if (isLoading) {
     return (
       <div className="loading-screen">
         <div className="loader"></div>
-        <p>Loading Shammas Portfolio...</p>
+        <p>Loading Portfolio...</p>
       </div>
     )
   }

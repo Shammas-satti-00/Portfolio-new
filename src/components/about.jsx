@@ -14,8 +14,8 @@ const About = () => {
   }, [])
 
   const coreDomains = [
-    { title: 'Gameplay Systems', desc: 'Responsive player mechanics, modular weapons, and core game loops.', icon: '🎮', color: '#667eea' },
-    { title: 'Physics & Simulation', desc: 'Realistic flight controls, physics movement, and environment checkpoints.', icon: '✈️', color: '#06b6d4' },
+    { title: 'Gameplay Systems', desc: 'Responsive player mechanics, modular weapons, and core game loops.', icon: '🎮', color: '#0f172a' },
+    { title: 'Physics & Simulation', desc: 'Realistic flight controls, physics movement, and environment checkpoints.', icon: '✈️', color: '#3b82f6' },
     { title: 'Optimization', desc: 'Maximizing framerates, reducing GC overhead, and profiling memory.', icon: '⚡', color: '#f59e0b' },
     { title: 'Multiplayer Dev', desc: 'Online lobbies and real-time state sync using Photon PUN.', icon: '🌐', color: '#10b981' },
   ]
@@ -78,6 +78,14 @@ const About = () => {
                 }}>
                   📄 Download Resume
                 </button>
+                <button className="btn btn-primary europass-btn" onClick={() => {
+                  const link = document.createElement('a')
+                  link.href = '/Eurpass Cv.pdf'
+                  link.download = 'Eurpass Cv.pdf'
+                  link.click()
+                }}>
+                  🇪🇺 Download Europass CV
+                </button>
                 <button className="btn btn-secondary" onClick={() => window.open('https://github.com/Shammas-satti-00', '_blank')}>
                   GitHub Profile
                 </button>
@@ -125,7 +133,7 @@ const About = () => {
       <style jsx>{`
         .about-section {
           background: var(--bg-primary);
-          padding: 70px 0;
+          padding: 80px 0;
           align-items: flex-start;
         }
 
@@ -133,24 +141,24 @@ const About = () => {
         .about-layout {
           display: grid;
           grid-template-columns: 1.1fr 0.9fr;
-          gap: 3.5rem;
+          gap: 3rem;
           align-items: start;
         }
 
         /* ── Animations ── */
         .about-left {
           opacity: 0;
-          transform: translateX(-36px);
+          transform: translateX(-20px);
         }
         .about-anim-left {
-          animation: slideInLeft 0.75s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+          animation: slideInLeft 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
         .about-right {
           opacity: 0;
-          transform: translateX(36px);
+          transform: translateX(20px);
         }
         .about-anim-right {
-          animation: slideInRight 0.75s 0.15s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+          animation: slideInRight 0.6s 0.1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
         @keyframes slideInLeft { to { opacity:1; transform: translateX(0); } }
@@ -160,8 +168,8 @@ const About = () => {
         .about-bio-card {
           background: var(--card-bg);
           border: 1px solid var(--border-color);
-          border-radius: 20px;
-          padding: 2.4rem;
+          border-radius: 16px;
+          padding: 2.5rem;
           position: relative;
           overflow: hidden;
         }
@@ -170,8 +178,8 @@ const About = () => {
           content: '';
           position: absolute;
           top: 0; left: 0; right: 0;
-          height: 3px;
-          background: var(--accent-gradient);
+          height: 2px;
+          background: var(--text-primary);
         }
 
         .bio-label {
@@ -180,33 +188,28 @@ const About = () => {
           font-weight: 700;
           letter-spacing: 0.12em;
           text-transform: uppercase;
-          color: var(--accent-primary);
-          font-family: 'JetBrains Mono', monospace;
-          background: rgba(102, 126, 234, 0.1);
-          padding: 4px 12px;
-          border-radius: 20px;
-          margin-bottom: 1rem;
+          color: var(--text-muted);
+          font-family: var(--font-mono);
+          margin-bottom: 1.25rem;
         }
 
         .bio-heading {
-          font-size: 1.85rem;
+          font-size: 1.75rem;
           font-weight: 800;
           color: var(--text-primary);
           letter-spacing: -0.02em;
-          line-height: 1.25;
+          line-height: 1.3;
           margin-bottom: 1.2rem;
         }
 
         .bio-heading span {
-          background: var(--accent-gradient);
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-          background-clip: text;
+          color: var(--text-primary);
+          -webkit-text-fill-color: unset;
         }
 
         .bio-body {
-          font-size: 0.97rem;
-          color: var(--text-muted);
+          font-size: 0.95rem;
+          color: var(--text-secondary);
           line-height: 1.75;
           margin-bottom: 1rem;
         }
@@ -216,8 +219,8 @@ const About = () => {
           flex-direction: column;
           gap: 0.6rem;
           margin: 1.5rem 0;
-          padding: 1.2rem;
-          background: var(--bg-tertiary);
+          padding: 1.25rem;
+          background: var(--bg-secondary);
           border-radius: 12px;
           border: 1px solid var(--border-color);
         }
@@ -225,7 +228,7 @@ const About = () => {
         .bio-chip {
           display: flex;
           align-items: center;
-          gap: 0.7rem;
+          gap: 0.75rem;
           font-size: 0.88rem;
           color: var(--text-secondary);
         }
@@ -237,7 +240,7 @@ const About = () => {
 
         .about-actions {
           display: flex;
-          gap: 1rem;
+          gap: 0.75rem;
           flex-wrap: wrap;
           margin-top: 1.5rem;
         }
@@ -246,16 +249,16 @@ const About = () => {
         .domains-grid {
           display: grid;
           grid-template-columns: repeat(2, 1fr);
-          gap: 1rem;
-          margin-bottom: 1.25rem;
+          gap: 0.75rem;
+          margin-bottom: 1rem;
         }
 
         .domain-card {
           background: var(--card-bg);
           border: 1px solid var(--border-color);
-          border-radius: 14px;
+          border-radius: 12px;
           padding: 1.25rem;
-          transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+          transition: all 0.2s ease;
           position: relative;
           overflow: hidden;
         }
@@ -264,88 +267,92 @@ const About = () => {
           content: '';
           position: absolute;
           bottom: 0; left: 0; right: 0;
-          height: 3px;
-          background: var(--card-color, var(--accent-primary));
+          height: 2px;
+          background: var(--text-primary);
           opacity: 0;
-          transition: opacity 0.25s ease;
+          transition: opacity 0.2s ease;
         }
 
         .domain-card:hover {
-          transform: translateY(-5px);
-          border-color: var(--card-color, var(--accent-primary));
-          box-shadow: 0 16px 40px var(--shadow-medium),
-                      0 0 0 1px color-mix(in srgb, var(--card-color, var(--accent-primary)) 20%, transparent);
+          transform: translateY(-3px);
+          box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
+          border-color: #cbd5e1;
         }
 
         .domain-card:hover::after { opacity: 1; }
 
         .domain-icon-wrap {
-          width: 38px;
-          height: 38px;
-          border-radius: 10px;
-          background: var(--bg-tertiary);
+          width: 36px;
+          height: 36px;
+          border-radius: 8px;
+          background: var(--bg-secondary);
           display: flex;
           align-items: center;
           justify-content: center;
-          font-size: 1.15rem;
-          margin-bottom: 0.8rem;
+          font-size: 1.1rem;
+          margin-bottom: 0.75rem;
         }
 
         .domain-title {
-          font-size: 0.97rem;
+          font-size: 0.9rem;
           font-weight: 700;
           color: var(--text-primary);
-          margin-bottom: 0.35rem;
+          margin-bottom: 0.3rem;
+          font-family: var(--font-sans);
+          letter-spacing: -0.01em;
         }
 
         .domain-desc {
-          font-size: 0.8rem;
+          font-size: 0.78rem;
           color: var(--text-muted);
           line-height: 1.5;
+          font-family: var(--font-sans);
         }
 
         /* ── Highlights ── */
         .highlights-card {
           background: var(--card-bg);
           border: 1px solid var(--border-color);
-          border-radius: 14px;
+          border-radius: 12px;
           padding: 1.5rem;
         }
 
         .highlights-heading {
-          font-size: 1rem;
+          font-size: 0.9rem;
           font-weight: 700;
           color: var(--text-primary);
           margin-bottom: 1rem;
           padding-bottom: 0.7rem;
           border-bottom: 1px solid var(--border-color);
+          font-family: var(--font-sans);
+          letter-spacing: -0.01em;
         }
 
         .highlights-list {
           list-style: none;
           display: grid;
           grid-template-columns: 1fr 1fr;
-          gap: 0.5rem;
+          gap: 0.4rem;
         }
 
         .highlights-list li {
           display: flex;
           align-items: center;
           gap: 0.5rem;
-          font-size: 0.87rem;
+          font-size: 0.82rem;
           color: var(--text-secondary);
-          padding: 0.3rem 0;
+          padding: 0.25rem 0;
         }
 
         .hl-check {
-          color: var(--accent-primary);
-          font-size: 0.75rem;
+          color: var(--text-muted);
+          font-size: 0.7rem;
           flex-shrink: 0;
         }
 
         /* ── Responsive ── */
         @media (max-width: 1024px) {
-          .about-layout { gap: 2.5rem; }
+          .about-layout { gap: 2rem; }
         }
 
         @media (max-width: 768px) {

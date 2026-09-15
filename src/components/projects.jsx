@@ -1,9 +1,8 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect } from 'react'
 
 const Projects = () => {
   const [isVisible, setIsVisible] = useState(false)
   const [activeFilter, setActiveFilter] = useState('all')
-  const sliderRef = useRef(null)
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -12,7 +11,7 @@ const Projects = () => {
           setIsVisible(true)
         }
       },
-      { threshold: 0.3 }
+      { threshold: 0.1 }
     )
 
     const element = document.getElementById('projects')
@@ -23,121 +22,169 @@ const Projects = () => {
     return () => observer.disconnect()
   }, [])
 
-  const scrollLeft = () => {
-    if (sliderRef.current) {
-      sliderRef.current.scrollBy({
-        left: -370,
-        behavior: 'smooth'
-      })
-    }
-  }
-
-  const scrollRight = () => {
-    if (sliderRef.current) {
-      sliderRef.current.scrollBy({
-        left: 370,
-        behavior: 'smooth'
-      })
-    }
-  }
-
   const projects = [
     {
       id: 7,
       title: "Mars Vanguard",
       description: "Enter a fast-paced 3D space shooter where you battle endless waves of enemy ships in intense arcade-style combat.",
       image: "Mars vanguard.webp",
+      video: "/folder/mars.mp4",
       technologies: ["Unity 3D", "C#", "Level Design", "Game Optimization"],
       category: "Games",
       linkType: "playstore",
-      projectUrl: "https://play.google.com/store/apps/details?id=com.veeivs.marsvanguard"
+      projectUrl: "https://play.google.com/store/apps/details?id=com.veeivs.marsvanguard",
+      featured: true
     },
     {
       id: 8,
       title: "Airplane Skybound Simulator",
       description: "Become a skilled pilot, control powerful aircraft, and complete exciting missions as you explore the world from above.",
       image: "Airplane skybound simulaotr.png",
+      video: "/folder/airplane skybound.mp4",
       technologies: ["Unity 3D", "C#", "Physics Simulation", "Flight Controls"],
       category: "Games",
       linkType: "playstore",
-      projectUrl: "https://play.google.com/store/apps/details?id=com.vgl.airplane.skybound.simulator.game&pli=1"
+      projectUrl: "https://play.google.com/store/apps/details?id=com.vgl.airplane.skybound.simulator.game&pli=1",
+      featured: true
+    },
+    {
+      id: 11,
+      title: "Kachujin Action",
+      description: "Action-packed gameplay showcasing intricate character animations and combat mechanics.",
+      image: "vr.jpeg",
+      video: "/folder/kachujin.mp4",
+      technologies: ["Unity 3D", "Animation", "C#"],
+      category: "Games",
+      linkType: "github",
+      projectUrl: "https://github.com/Shammas-satti-00/Kachujin-Endless-Runner-Unity-3d",
+      featured: false
+    },
+    {
+      id: 12,
+      title: "Furious Driving",
+      description: "High-speed racing game with advanced vehicle physics and dynamic environments.",
+      image: "vr.jpeg",
+      video: "/folder/furious.mp4",
+      technologies: ["Unity 3D", "Vehicle Physics"],
+      category: "Games",
+      linkType: "github",
+      projectUrl: "https://github.com/Shammas-satti-00/Furious-Racer-Unity-3d",
+      featured: false
+    },
+    {
+      id: 13,
+      title: "Atiana Lego",
+      description: "A fun and creative Lego-themed adventure game.",
+      image: "vr.jpeg",
+      video: "/folder/Atiana lego.mp4",
+      technologies: ["Unity 3D", "C#", "Level Design"],
+      category: "Games",
+      linkType: "github",
+      projectUrl: "https://github.com/Shammas-satti-00/Atiana-Roblox-Unity-3d",
+      featured: false
+    },
+    {
+      id: 14,
+      title: "Terrain Exploration",
+      description: "Procedurally generated terrain with advanced shaders and immersive exploration.",
+      image: "vr.jpeg",
+      video: "/folder/Terrian.mp4",
+      technologies: ["Unity 3D", "Shaders", "Procedural Generation"],
+      category: "Games",
+      linkType: "github",
+      projectUrl: "https://github.com/Shammas-satti-00/Terrain-World-Environment-Unity",
+      featured: false
     },
     {
       id: 1,
-      title: "3D Physics & VR Game Environment",
-      description: "Interactive 3D simulation environment built in Unity, focusing on physics-based controls and optimization.",
+      title: "Compound Environment",
+      description: "A realistic 3D environment made in Unity, focusing on physics-based controls and optimization.",
       image: "vr.jpeg",
+      video: "/folder/Compound Env.mp4",
       technologies: ["C#", "Unity 3D", "Physics Engine"],
       category: "Games",
       linkType: "github",
-      projectUrl: "https://github.com/Shammas-satti-00/VR-Tutorial-Unity-3D"
+      projectUrl: "https://github.com/Shammas-satti-00/Unity-3D-learner-Projects",
+      featured: false
     },
     {
       id: 3,
-      title: "Shape Shifter Runner",
-      description: "Player morphs into different forms (ball, cube, jet) to pass through obstacles of matching shapes.",
+      title: "Cube Run",
+      description: "A fun and creative cube game",
       image: "shape.png",
+      video: "/folder/cube ran.mp4",
       technologies: ["Unity 3D", "C#"],
       category: "Games",
       linkType: "github",
-      projectUrl: "https://github.com/Shammas-satti-00/Portfolio-Website.git"
+      projectUrl: "https://github.com/Shammas-satti-00/Cube-Runner-my-1st-",
+      featured: false
+    },
+    {
+      id: 2,
+      title: "Super Performer",
+      description: "A thrilling 2D runner game where your speed and precision determine your survival against a relentless onslaught of obstacles.",
+      image: "mario.jpeg",
+      video: "/folder/super rn.mp4",
+      technologies: ["Unity 2D", "C#", "Physics Engine"],
+      category: "Games",
+      linkType: "github",
+      projectUrl: "https://github.com/Shammas-satti-00/Super-Runner-2D-Unity-3d",
+      featured: false
     },
     {
       id: 9,
       title: "Tick-Tack Multiplayer (Unity 2D)",
-      description: "A 2D multiplayer Tic-Tac-Toe style game built in Unity using Photon PUN for real-time online gameplay. Synchronization Remaining!",
-      image: "tictac.png",
+      description: "A 2D multiplayer Tic-Tac-Toe style game built in Unity using Photon PUN for real-time online gameplay.",
+      image: "/tictac-multi.jpg",
+      video: "",
       technologies: ["Unity 2D", "C#", "Photon PUN", "Multiplayer"],
       category: "Games",
       linkType: "github",
-      projectUrl: "https://github.com/Shammas-satti-00/Tick-Tack-Multiplayer-Unity-3D"
-    },
-    {
-      id: 2,
-      title: "Super Mario Game",
-      description: "Created a 2D Mario-style platformer game using OpenGL in C++, featuring custom graphics and interactive gameplay mechanics.",
-      image: "mario.jpeg",
-      technologies: ["C++", "OpenGL"],
-      category: "Games",
-      linkType: "github",
-      projectUrl: "https://github.com/Shammas-satti-00/Flappy-Mario-Game-in-C-with-opengl-"
+      projectUrl: "https://github.com/Shammas-satti-00/Tick-Tack-Multiplayer-Unity-3D",
+      featured: false
     },
     {
       id: 6,
       title: "AI Based Deepfake Detection System",
       description: "Deepfake Detection and Sentiment Analysis system using Python, OpenCV, TensorFlow, and Natural Language Processing (NLP) techniques.",
-      image: "deepfake.jpeg",
-      technologies: ["Next.js", "NLP-Model", "ResNet", "Python", "Responsive Design"],
+      image: "/deepfake-ui.jpg",
+      video: "",
+      technologies: ["Next.js", "NLP-Model", "ResNet", "Python"],
       category: "fullstack",
       linkType: "github",
-      projectUrl: "https://github.com/Shammas-satti-00/AI-Powered-Deepfake-Detection-with-Sentiment-Analysis"
+      projectUrl: "https://github.com/Shammas-satti-00/AI-Powered-Deepfake-Detection-with-Sentiment-Analysis",
+      featured: false
     },
     {
       id: 5,
       title: "AI Powered Skill Matcher",
       description: "AI tool that matches resumes with job descriptions using NLP and semantic skill extraction.",
-      image: "skill-matcher.jpeg",
+      image: "/skill-matcher-ui.jpg",
+      video: "",
       technologies: ["NLP", "PyTorch", "Python", "MongoDB"],
       category: "fullstack",
       linkType: "github",
-      projectUrl: "https://github.com/Shammas-satti-00/Ai-Powered-Skill-Matcher"
+      projectUrl: "https://github.com/Shammas-satti-00/Ai-Powered-Skill-Matcher",
+      featured: false
     },
     {
       id: 4,
       title: "E-Library",
-      description: "Designed and developed a responsive E-Library website using HTML, CSS, and JavaScript for easy access to digital books and resources.",
-      image: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=500&h=300&fit=crop",
+      description: "Designed and developed a responsive E-Library website using HTML, CSS, and JavaScript for easy access to digital books.",
+      image: "/elibrary-ui.jpg",
+      video: "",
       technologies: ["HTML", "CSS", "JavaScript"],
       category: "fullstack",
       linkType: "github",
-      projectUrl: "https://github.com/Shammas-satti-00/Web-Development-Project"
+      projectUrl: "https://github.com/Shammas-satti-00/Web-Development-Project",
+      featured: false
     }
   ]
 
   const filters = [
-    { id: 'all', label: 'All Projects' },
+    { id: 'all', label: 'All' },
     { id: 'Games', label: 'Games' },
-    { id: 'fullstack', label: 'Full Stack' }
+    { id: 'fullstack', label: 'Full Stack & AI' }
   ]
 
   const filteredProjects = activeFilter === 'all'
@@ -147,238 +194,208 @@ const Projects = () => {
   return (
     <section id="projects" className="projects-section">
       <div className="section-container">
-        <h2 className="section-title">My Projects</h2>
 
-        <div className={`projects-intro ${isVisible ? 'fade-in' : ''}`}>
-          <p>
-            Here are some of the projects I've worked on. Each project represents a unique challenge
-            and showcases different aspects of my technical skills and problem-solving abilities.
-          </p>
+        <div className="projects-header">
+          <div className="header-content">
+            <p className="section-label">Selected Work</p>
+            <h2 className="section-title">Projects</h2>
+          </div>
+
+          <div className={`filter-buttons ${isVisible ? 'fade-in' : ''}`}>
+            {filters.map((filter) => (
+              <button
+                key={filter.id}
+                className={`filter-btn ${activeFilter === filter.id ? 'active' : ''}`}
+                onClick={() => setActiveFilter(filter.id)}
+              >
+                {filter.label}
+              </button>
+            ))}
+          </div>
         </div>
 
-        <div className={`filter-buttons ${isVisible ? 'fade-in' : ''}`}>
-          {filters.map((filter) => (
-            <button
-              key={filter.id}
-              className={`filter-btn ${activeFilter === filter.id ? 'active' : ''}`}
-              onClick={() => setActiveFilter(filter.id)}
+        <div className="project-grid">
+          {filteredProjects.map((project, index) => (
+            <div
+              key={project.id}
+              className={`project-card ${project.featured ? 'featured-card' : ''} ${isVisible ? 'slide-up' : ''}`}
+              style={{ animationDelay: `${index * 0.06}s` }}
             >
-              {filter.label}
-            </button>
+              <div className="card-media">
+                {project.video ? (
+                  <video
+                    src={project.video}
+                    className="media-video"
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    poster={project.image}
+                  />
+                ) : (
+                  <img src={project.image} alt={project.title} className="media-image" />
+                )}
+
+                <div className="media-hover">
+                  <a
+                    href={project.projectUrl}
+                    className="project-link"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {project.linkType === 'playstore' ? 'Play Store →' : 'View Source →'}
+                  </a>
+                </div>
+              </div>
+
+              <div className="card-body">
+                <h3 className="project-title">{project.title}</h3>
+                <p className="project-description">{project.description}</p>
+                <div className="project-tech">
+                  {project.technologies.map((tech, techIndex) => (
+                    <span key={techIndex} className="tech-tag">{tech}</span>
+                  ))}
+                </div>
+              </div>
+            </div>
           ))}
         </div>
 
-        <div className="slider-container-outer">
-          <button className="slider-arrow prev" onClick={scrollLeft} aria-label="Previous Project">
-            ‹
-          </button>
-
-          <div className="projects-slider-wrapper" ref={sliderRef}>
-            <div className="projects-grid">
-              {filteredProjects.map((project, index) => (
-                <div
-                  key={project.id}
-                  className={`project-card ${isVisible ? 'slide-in-left' : ''}`}
-                  style={{ animationDelay: `${index * 0.1}s` }}
-                >
-                  <div className="project-image">
-                    <img src={project.image} alt={project.title} />
-                    <div className="project-overlay">
-                      <div className="project-links">
-                        <a
-                          href={project.projectUrl}
-                          className={`project-link ${project.linkType}`}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          {project.linkType === 'playstore' ? '🤖 Play Store' : '🐙 GitHub'}
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="project-content">
-                    <h3 className="project-title">{project.title}</h3>
-                    <p className="project-description">{project.description}</p>
-
-                    <div className="project-technologies">
-                      {project.technologies.map((tech, techIndex) => (
-                        <span key={techIndex} className="tech-tag">{tech}</span>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <button className="slider-arrow next" onClick={scrollRight} aria-label="Next Project">
-            ›
-          </button>
-        </div>
-
-        <div className={`projects-cta ${isVisible ? 'fade-in' : ''}`}>
-          <h3>Interested in working together?</h3>
-          <p>Let's discuss your project and see how I can help bring your ideas to life.</p>
-          <button className="btn btn-primary" onClick={() => document.getElementById('contact').scrollIntoView({ behavior: 'smooth' })}>
-            Get In Touch
-          </button>
-        </div>
       </div>
 
       <style jsx>{`
         .projects-section {
           background: var(--bg-secondary);
-          padding: 70px 0;
-          align-items: flex-start;
+          padding: 100px 0;
+          position: relative;
         }
 
-        .projects-intro {
-          text-align: center;
-          margin-bottom: 1.5rem;
-        }
-
-        .projects-intro p {
-          font-size: 1.1rem;
-          color: var(--text-muted);
-          max-width: 600px;
+        .section-container {
+          max-width: 1200px;
           margin: 0 auto;
-          line-height: 1.6;
+          padding: 0 24px;
+        }
+
+        .projects-header {
+          display: flex;
+          justify-content: space-between;
+          align-items: flex-end;
+          margin-bottom: 3.5rem;
+          gap: 2rem;
+          flex-wrap: wrap;
+        }
+
+        .section-label {
+          font-size: 0.8rem;
+          font-family: var(--font-mono);
+          color: var(--text-muted);
+          text-transform: uppercase;
+          letter-spacing: 0.1em;
+          margin-bottom: 0.5rem;
+        }
+
+        .section-title {
+          font-size: 3rem;
+          font-weight: 800;
+          color: var(--text-primary);
+          letter-spacing: -0.03em;
+          line-height: 1;
         }
 
         .filter-buttons {
           display: flex;
-          justify-content: center;
-          gap: 0.75rem;
-          margin-bottom: 2rem;
-          flex-wrap: wrap;
+          gap: 0.25rem;
+          background: var(--card-bg);
+          padding: 4px;
+          border-radius: 10px;
+          border: 1px solid var(--border-color);
         }
 
         .filter-btn {
-          padding: 0.6rem 1.4rem;
-          border: 1.5px solid var(--border-color);
-          background: var(--card-bg);
+          padding: 0.5rem 1.25rem;
+          border: none;
+          background: transparent;
           color: var(--text-secondary);
-          border-radius: 25px;
-          font-size: 0.88rem;
+          border-radius: 7px;
+          font-size: 0.85rem;
           font-weight: 600;
-          font-family: inherit;
+          font-family: var(--font-sans);
           cursor: pointer;
           transition: all 0.2s ease;
         }
 
-        .filter-btn:hover,
+        .filter-btn:hover {
+          color: var(--text-primary);
+        }
+
         .filter-btn.active {
-          background: var(--accent-gradient);
-          color: white;
-          border-color: transparent;
-          box-shadow: 0 4px 16px rgba(102, 126, 234, 0.35);
+          background: var(--btn-primary-bg);
+          color: var(--btn-primary-text);
         }
 
-        .slider-container-outer {
-          position: relative;
-          width: 100%;
-          margin: 0 auto;
-          padding: 0 45px;
-        }
-
-        .projects-slider-wrapper {
-          overflow-x: auto;
-          scroll-behavior: smooth;
-          scroll-snap-type: x mandatory;
-          scrollbar-width: none;
-          padding: 1rem 0;
-        }
-
-        .projects-slider-wrapper::-webkit-scrollbar {
-          display: none;
-        }
-
-        .projects-grid {
-          display: flex;
+        /* ── Clean Grid ── */
+        .project-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
           gap: 1.5rem;
-          margin-bottom: 1.5rem;
-          width: max-content;
+        }
+
+        @media (min-width: 1024px) {
+          .project-grid {
+            grid-template-columns: repeat(3, 1fr);
+          }
+
+          .featured-card {
+            grid-column: span 2;
+          }
+
+          .featured-card .card-media {
+            height: 340px;
+          }
         }
 
         .project-card {
-          flex: 0 0 340px;
-          scroll-snap-align: start;
           background: var(--card-bg);
           border: 1px solid var(--border-color);
-          border-radius: 14px;
+          border-radius: 16px;
           overflow: hidden;
-          box-shadow: 0 8px 24px var(--shadow-light);
-          transition: transform 0.25s ease, box-shadow 0.25s ease;
-          opacity: 0;
-          transform: translateX(-40px);
-          animation: slideInLeft 0.7s ease forwards;
-        }
-
-        .slider-arrow {
-          position: absolute;
-          top: 50%;
-          transform: translateY(-50%);
-          width: 50px;
-          height: 50px;
-          border-radius: 50%;
-          background: rgba(26, 32, 44, 0.9);
-          border: 1.5px solid var(--border-color);
-          color: white;
-          font-size: 2rem;
           display: flex;
-          align-items: center;
-          justify-content: center;
-          cursor: pointer;
-          z-index: 10;
+          flex-direction: column;
           transition: all 0.3s ease;
-          box-shadow: 0 4px 15px var(--shadow-light);
-        }
-
-        .slider-arrow.prev {
-          left: -10px;
-        }
-
-        .slider-arrow.next {
-          right: -10px;
-        }
-
-        .slider-arrow:hover {
-          background: var(--accent-gradient);
-          color: white;
-          border-color: transparent;
-          transform: translateY(-50%) scale(1.1);
+          opacity: 0;
+          transform: translateY(20px);
         }
 
         .project-card:hover {
-          transform: translateY(-10px);
-          box-shadow: 0 20px 40px var(--shadow-medium);
+          transform: translateY(-4px);
+          box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+          border-color: #cbd5e1;
         }
 
-        .project-image {
+        .card-media {
           position: relative;
-          height: 200px;
+          height: 220px;
+          width: 100%;
           overflow: hidden;
+          background: var(--bg-tertiary);
         }
 
-        .project-image img {
+        .media-image, .media-video {
           width: 100%;
           height: 100%;
           object-fit: cover;
-          transition: transform 0.3s ease;
+          transition: transform 0.5s ease;
         }
 
-        .project-card:hover .project-image img {
-          transform: scale(1.1);
+        .project-card:hover .media-image,
+        .project-card:hover .media-video {
+          transform: scale(1.04);
         }
 
-        .project-overlay {
+        .media-hover {
           position: absolute;
-          top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          background: rgba(102, 126, 234, 0.9);
+          inset: 0;
+          background: rgba(15, 23, 42, 0.6);
           display: flex;
           align-items: center;
           justify-content: center;
@@ -386,230 +403,102 @@ const Projects = () => {
           transition: opacity 0.3s ease;
         }
 
-        .project-card:hover .project-overlay {
+        .project-card:hover .media-hover {
           opacity: 1;
         }
 
-        .project-links {
-          display: flex;
-          gap: 1rem;
-        }
-
         .project-link {
-          padding: 0.8rem 1.5rem;
-          text-decoration: none;
-          border-radius: 25px;
+          padding: 0.6rem 1.5rem;
+          border-radius: 8px;
           font-weight: 600;
-          transition: all 0.3s ease;
-          display: inline-flex;
-          align-items: center;
-          gap: 0.5rem;
-        }
-
-        .project-link.playstore {
-          background: #34a853;
+          font-size: 0.85rem;
           color: white;
-          box-shadow: 0 4px 15px rgba(52, 168, 83, 0.4);
+          background: var(--text-primary);
+          text-decoration: none;
+          transition: all 0.2s ease;
+          transform: translateY(10px);
+          opacity: 0;
         }
 
-        .project-link.playstore:hover {
-          background: #2d8e47;
-          transform: scale(1.05);
-          box-shadow: 0 6px 20px rgba(52, 168, 83, 0.6);
+        .project-card:hover .project-link {
+          transform: translateY(0);
+          opacity: 1;
+          transition-delay: 0.1s;
         }
 
-        .project-link.github {
-          background: #1a202c;
-          color: white;
-          border: 1px solid var(--border-color);
-          box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        .project-link:hover {
+          background: #334155;
         }
 
-        .project-link.github:hover {
-          background: #2d3748;
-          transform: scale(1.05);
-          box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
-        }
-
-        .project-content {
+        .card-body {
           padding: 1.5rem;
+          display: flex;
+          flex-direction: column;
+          flex-grow: 1;
         }
 
         .project-title {
-          font-size: 1.3rem;
-          font-weight: 600;
+          font-size: 1.25rem;
+          font-weight: 700;
           color: var(--text-primary);
-          margin-bottom: 0.8rem;
+          line-height: 1.3;
+          margin: 0 0 0.5rem;
+          letter-spacing: -0.01em;
         }
 
         .project-description {
-          font-size: 0.88rem;
-          color: var(--text-muted);
+          font-size: 0.9rem;
+          color: var(--text-secondary);
           line-height: 1.6;
-          margin-bottom: 1rem;
+          margin-bottom: 1.25rem;
+          flex-grow: 1;
         }
 
-        .project-technologies {
+        .project-tech {
           display: flex;
           flex-wrap: wrap;
-          gap: 0.5rem;
+          gap: 0.4rem;
+          margin-top: auto;
         }
 
         .tech-tag {
           background: var(--bg-tertiary);
-          color: var(--accent-primary);
-          padding: 0.3rem 0.8rem;
-          border-radius: 15px;
-          font-size: 0.8rem;
-          font-weight: 500;
+          color: var(--text-secondary);
+          padding: 0.3rem 0.7rem;
+          border-radius: 6px;
+          font-size: 0.72rem;
+          font-weight: 600;
+          font-family: var(--font-mono);
         }
 
-        .projects-cta {
-          text-align: center;
-          background: var(--card-bg);
-          border: 1px solid var(--border-color);
-          padding: 2.5rem;
-          border-radius: 14px;
-          box-shadow: 0 8px 24px var(--shadow-light);
-          margin-top: 2rem;
+        .slide-up {
+          animation: slideUpFade 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
-        .projects-cta h3 {
-          font-size: 1.8rem;
-          font-weight: 700;
-          color: var(--text-primary);
-          margin-bottom: 1rem;
-        }
-
-        .projects-cta p {
-          color: var(--text-muted);
-          margin-bottom: 2rem;
-          font-size: 1.1rem;
+        @keyframes slideUpFade {
+          from { opacity: 0; transform: translateY(20px); }
+          to { opacity: 1; transform: translateY(0); }
         }
 
         @media (max-width: 1024px) {
-          .filter-buttons {
-            gap: 0.8rem;
-          }
-
-          .filter-btn {
-            padding: 0.8rem 1.5rem;
-            font-size: 0.95rem;
+          .projects-header {
+            flex-direction: column;
+            align-items: flex-start;
           }
         }
 
         @media (max-width: 768px) {
-          .projects-grid {
-            gap: 1.2rem;
+          .project-grid {
+            grid-template-columns: 1fr;
           }
-
-          .slider-arrow {
-            display: none;
+          .featured-card {
+            grid-column: span 1;
           }
-
-          .filter-buttons {
-            gap: 0.5rem;
-            flex-wrap: wrap;
-            justify-content: center;
+          .featured-card .card-media {
+            height: 220px;
           }
-
-          .filter-btn {
-            padding: 0.6rem 1.2rem;
-            font-size: 0.9rem;
-          }
-
-          .project-content {
-            padding: 1rem;
-          }
-
-          .projects-cta {
-            padding: 2rem;
-          }
-
-          .project-title {
-            font-size: 1.2rem;
-          }
-        }
-
-        @media (max-width: 640px) {
-          .filter-buttons {
-            gap: 0.4rem;
-          }
-
-          .filter-btn {
-            padding: 0.5rem 1rem;
-            font-size: 0.85rem;
-          }
-
-          .project-content {
-            padding: 0.8rem;
-          }
-
-          .project-title {
-            font-size: 1.1rem;
-          }
-
-          .projects-cta {
-            padding: 1.5rem;
-          }
-
-          .projects-cta h3 {
-            font-size: 1.6rem;
-          }
-        }
-
-        @media (max-width: 480px) {
-          .project-card {
-            flex: 0 0 calc(100vw - 40px);
-          }
-
-          .projects-cta h3 {
-            font-size: 1.5rem;
-          }
-
-          .filter-buttons {
-            flex-direction: column;
-            align-items: center;
-          }
-
-          .filter-btn {
-            width: 100%;
-            max-width: 200px;
-            padding: 0.6rem 1rem;
-          }
-
-          .project-content {
-            padding: 0.7rem;
-          }
-
-          .project-title {
-            font-size: 1rem;
-          }
-
-          .tech-tag {
-            font-size: 0.7rem;
-            padding: 0.2rem 0.6rem;
-          }
-        }
-
-        @media (max-width: 360px) {
-          .projects-cta h3 {
-            font-size: 1.4rem;
-          }
-
-          .filter-btn {
-            font-size: 0.8rem;
-            padding: 0.5rem 0.8rem;
-          }
-
-          .project-title {
-            font-size: 0.95rem;
-          }
-
-          .tech-tag {
-            font-size: 0.65rem;
-            padding: 0.15rem 0.5rem;
-          }
+          .projects-section { padding: 60px 0; }
+          .section-title { font-size: 2.2rem; }
         }
       `}</style>
     </section>

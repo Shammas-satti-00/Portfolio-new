@@ -1,9 +1,11 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
+import { ThemeContext } from '../context/ThemeContext'
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [activeSection, setActiveSection] = useState('home')
+  const { theme, toggleTheme } = useContext(ThemeContext)
 
   const navItems = [
     { id: 'home',       label: 'Home',       icon: '🏠' },
@@ -17,28 +19,21 @@ const Navbar = () => {
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50)
-
-      // Scroll-spy: find which section is currently in view
       const sections = navItems.map(item => document.getElementById(item.id)).filter(Boolean)
       let current = 'home'
       sections.forEach(section => {
         const rect = section.getBoundingClientRect()
-        if (rect.top <= 120) {
-          current = section.id
-        }
+        if (rect.top <= 120) current = section.id
       })
       setActiveSection(current)
     }
-
     window.addEventListener('scroll', handleScroll, { passive: true })
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
   const scrollToSection = (sectionId) => {
     const element = document.getElementById(sectionId)
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' })
-    }
+    if (element) element.scrollIntoView({ behavior: 'smooth' })
     setIsMobileMenuOpen(false)
   }
 
@@ -67,8 +62,24 @@ const Navbar = () => {
           ))}
         </div>
 
-        {/* Hamburger */}
         <div className="nav-actions">
+          {/* Dark / Light toggle */}
+          <button
+            className="theme-toggle"
+            onClick={toggleTheme}
+            title={theme === 'light' ? 'Switch to Dark Mode' : 'Switch to Light Mode'}
+            aria-label="Toggle theme"
+          >
+            {theme === 'light' ? (
+              /* Moon icon — switch to dark */
+              <span role="img" aria-label="Moon" style={{ fontSize: '1.2rem' }}>🌙</span>
+            ) : (
+              /* Sun icon — switch to light */
+              <span role="img" aria-label="Sun" style={{ fontSize: '1.2rem' }}>☀️</span>
+            )}
+          </button>
+
+          {/* Hamburger */}
           <div
             className={`hamburger ${isMobileMenuOpen ? 'active' : ''}`}
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -96,15 +107,14 @@ const Navbar = () => {
         }
 
         .navbar.scrolled {
-          background: rgba(10, 13, 20, 0.92);
+          background: var(--navbar-bg);
           backdrop-filter: blur(20px);
           -webkit-backdrop-filter: blur(20px);
           border-bottom-color: var(--border-color);
-          box-shadow: 0 4px 30px rgba(0,0,0,0.4);
+          box-shadow: 0 1px 0 var(--border-color);
           padding: 0.7rem 0;
         }
 
-        /* ── Container ── */
         .nav-container {
           max-width: 1200px;
           margin: 0 auto;
@@ -114,7 +124,6 @@ const Navbar = () => {
           align-items: center;
         }
 
-        /* ── Logo ── */
         .nav-logo {
           font-size: 1.35rem;
           font-weight: 700;
@@ -131,23 +140,18 @@ const Navbar = () => {
         .nav-logo:hover { opacity: 0.75; }
 
         .logo-bracket {
-          background: var(--accent-gradient);
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-          background-clip: text;
-          font-family: 'JetBrains Mono', monospace;
+          color: var(--text-primary);
+          font-family: var(--font-mono);
           font-weight: 600;
           font-size: 1.2rem;
         }
 
-        /* ── Nav menu (desktop) ── */
         .nav-menu {
           display: flex;
           gap: 0.2rem;
           align-items: center;
         }
 
-        /* ── Nav link ── */
         .nav-link {
           position: relative;
           display: flex;
@@ -173,25 +177,19 @@ const Navbar = () => {
 
         .nav-link:hover {
           color: var(--text-primary);
-          background: rgba(102, 126, 234, 0.08);
+          background: var(--bg-tertiary);
         }
 
-        .nav-link:hover .nav-link-icon {
-          opacity: 1;
-        }
+        .nav-link:hover .nav-link-icon { opacity: 1; }
 
-        /* Active state */
         .nav-link-active {
-          color: var(--accent-primary) !important;
-          background: rgba(102, 126, 234, 0.12) !important;
+          color: var(--text-primary) !important;
+          background: var(--bg-tertiary) !important;
           font-weight: 600;
         }
 
-        .nav-link-active .nav-link-icon {
-          opacity: 1;
-        }
+        .nav-link-active .nav-link-icon { opacity: 1; }
 
-        /* Glowing dot indicator below active link */
         .nav-indicator {
           position: absolute;
           bottom: -2px;
@@ -200,15 +198,41 @@ const Navbar = () => {
           width: 4px;
           height: 4px;
           border-radius: 50%;
-          background: var(--accent-primary);
-          box-shadow: 0 0 6px var(--accent-primary);
+          background: var(--text-primary);
         }
 
         /* ── Actions ── */
         .nav-actions {
           display: flex;
           align-items: center;
-          gap: 1rem;
+          gap: 0.6rem;
+        }
+
+        /* ── Theme Toggle Button ── */
+        .theme-toggle {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 38px;
+          height: 38px;
+          border-radius: 10px;
+          border: 1px solid var(--border-color);
+          background: var(--bg-tertiary);
+          color: var(--text-secondary);
+          cursor: pointer;
+          transition: all 0.25s ease;
+          flex-shrink: 0;
+        }
+
+        .theme-toggle:hover {
+          background: var(--text-primary);
+          color: var(--bg-primary);
+          border-color: var(--text-primary);
+          transform: scale(1.08);
+        }
+
+        .theme-toggle svg {
+          display: block;
         }
 
         /* ── Hamburger ── */
@@ -232,7 +256,6 @@ const Navbar = () => {
         .hamburger.active span:nth-child(2) { opacity: 0; transform: scaleX(0); }
         .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(7px, -6px); }
 
-        /* ── Mobile ── */
         @media (max-width: 768px) {
           .nav-menu {
             position: fixed;
@@ -240,7 +263,7 @@ const Navbar = () => {
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(10, 13, 20, 0.97);
+            background: var(--navbar-bg);
             backdrop-filter: blur(20px);
             flex-direction: column;
             justify-content: center;
@@ -258,14 +281,8 @@ const Navbar = () => {
             visibility: visible;
           }
 
-          .nav-link {
-            font-size: 1.15rem;
-            padding: 0.7rem 2rem;
-            gap: 0.6rem;
-          }
-
+          .nav-link { font-size: 1.15rem; padding: 0.7rem 2rem; gap: 0.6rem; }
           .nav-link-icon { font-size: 1.1rem; }
-
           .nav-indicator { display: none; }
 
           .hamburger {

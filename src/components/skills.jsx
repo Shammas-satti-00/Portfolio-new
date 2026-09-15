@@ -18,7 +18,7 @@ const Skills = () => {
     {
       title: 'Game Dev Core',
       icon: '🎮',
-      color: '#667eea',
+      color: '#0f172a',
       desc: 'Building immersive, performant gameplay using industry-standard tools.',
       skills: [
         { name: 'Unity 3D / 2D', detail: 'Game loop architecture, physics integration, prefab systems, UI Canvas' },
@@ -30,7 +30,7 @@ const Skills = () => {
     {
       title: 'Graphics & Low-Level',
       icon: '⚡',
-      color: '#06b6d4',
+      color: '#3b82f6',
       desc: 'Understanding graphics pipelines, physics engines, and deep optimizations.',
       skills: [
         { name: 'C++ Programming', detail: 'Memory management, data structures, algorithm efficiency' },
@@ -42,7 +42,7 @@ const Skills = () => {
     {
       title: 'AI & Workflows',
       icon: '🧠',
-      color: '#a78bfa',
+      color: '#0ea5e9',
       desc: 'Incorporating intelligent features, team workflows, and full-stack utilities.',
       skills: [
         { name: 'Game AI Systems', detail: 'State machines, pathfinding, NPC behavior, combat tracking' },
@@ -354,9 +354,9 @@ const Skills = () => {
         .spec-visible .spec-tag { opacity: 0; animation: fadeUp 0.4s ease forwards; }
 
         .spec-tag:hover {
-          background: rgba(102, 126, 234, 0.15);
-          border-color: var(--accent-primary);
-          color: var(--accent-primary);
+          background: var(--bg-tertiary);
+          border-color: var(--text-secondary);
+          color: var(--text-primary);
           transform: translateY(-2px);
         }
 

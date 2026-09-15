@@ -6,14 +6,14 @@ const Hero = () => {
   const [imageError, setImageError] = useState(false)
 
   const roles = [
-    "Unity Game Developer",
-    "Gameplay Programmer",
-    "Physics & Sim Enthusiast"
+    "Game Engineering",
+    "Interactive Media",
+    "Physics & Systems"
   ]
 
   useEffect(() => {
     setIsVisible(true)
-    
+
     const interval = setInterval(() => {
       setCurrentTextIndex((prev) => (prev + 1) % roles.length)
     }, 3000)
@@ -41,37 +41,44 @@ const Hero = () => {
               Hi, I'm <span className="highlight">Shammas</span>
             </h1>
             <h2 className="hero-subtitle">
-              I'm a <span className="animated-text">{roles[currentTextIndex]}</span>
+              Specializing in <span className="animated-text">{roles[currentTextIndex]}</span>
             </h2>
             <p className="hero-description">
-              Designing optimized gameplay loops, physics simulations, and immersive interactive mechanics. Specializing in C# and Unity engine systems.
+              A computer science graduate bridging the gap between rigorous game engineering and creative interactive design. Building optimized gameplay systems, immersive mechanics, and exploring the future of interactive media.
             </p>
-            
+
             <div className="hero-buttons">
-              <button 
+              <button
                 className="btn btn-primary"
                 onClick={() => scrollToSection('projects')}
               >
-                View My Work
+                Explore My Work
               </button>
-              <button 
+              <button
                 className="btn btn-secondary"
-                onClick={() => scrollToSection('contact')}
+                onClick={() => window.open('https://github.com/Shammas-satti-00', '_blank')}
               >
-                Get In Touch
+                GitHub
+              </button>
+              <button
+                className="btn btn-secondary"
+                onClick={() => window.open('https://www.linkedin.com/in/shammas-satti00/', '_blank')}
+              >
+                LinkedIn
               </button>
             </div>
           </div>
 
           <div className="hero-visual">
-            <div className="hero-image-wrapper">
-              <div className="glowing-ring ring-1"></div>
-              <div className="glowing-ring ring-2"></div>
+            <div className="hero-image-wrapper float-anim">
+              {/* Decorative accent blobs */}
+              <div className="hero-dot hero-dot-1" />
+              <div className="hero-dot hero-dot-2" />
               <div className="profile-container">
                 {!imageError ? (
-                  <img 
-                    src="/profile-image.jpeg" 
-                    alt="Shammas - Game Developer" 
+                  <img
+                    src="/profile-image.jpeg"
+                    alt="Shammas - Game Developer"
                     className="profile-image"
                     onError={handleImageError}
                   />
@@ -81,23 +88,21 @@ const Hero = () => {
                     <div className="fallback-text">SM</div>
                   </div>
                 )}
-                <div className="profile-overlay"></div>
               </div>
             </div>
           </div>
         </div>
 
         <div className="scroll-indicator">
-          <div className="scroll-arrow"></div>
-          <span>Scroll Down</span>
+          <div className="scroll-line"></div>
+          <span>Scroll</span>
         </div>
       </div>
 
       <style jsx>{`
         .hero-section {
           min-height: 100vh;
-          background: radial-gradient(circle at 75% 40%, rgba(102, 126, 234, 0.12) 0%, rgba(15, 20, 25, 0) 50%),
-                      var(--bg-secondary);
+          background: var(--bg-primary);
           display: flex;
           align-items: center;
           justify-content: center;
@@ -105,98 +110,121 @@ const Hero = () => {
           overflow: hidden;
         }
 
-        /* Tech grid background overlay */
         .hero-section::before {
           content: '';
           position: absolute;
-          top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          background-image: 
-            linear-gradient(rgba(102, 126, 234, 0.02) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(102, 126, 234, 0.02) 1px, transparent 1px);
-          background-size: 50px 50px;
-          background-position: center;
+          top: 0; left: 0; right: 0; bottom: 0;
+          background-image: radial-gradient(var(--dot-color) 1px, transparent 1px);
+          background-size: 40px 40px;
           pointer-events: none;
         }
 
         .hero-container {
           max-width: 1200px;
           margin: 0 auto;
-          padding: 0 20px;
+          padding: 0 24px;
           width: 100%;
           z-index: 2;
         }
 
         .hero-content {
           display: grid;
-          grid-template-columns: 1.2fr 0.8fr;
+          grid-template-columns: 1fr 1fr;
           gap: 4rem;
           align-items: center;
         }
 
         .hero-text {
           opacity: 0;
-          transform: translateY(30px);
-          animation: fadeInUp 1s ease forwards;
+          transform: translateY(20px);
+          animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
         @keyframes fadeInUp {
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
+          to { opacity: 1; transform: translateY(0); }
         }
 
         .hero-title {
-          font-size: 4rem;
+          font-size: 4.5rem;
           font-weight: 800;
           margin-bottom: 1rem;
           color: var(--text-primary);
           line-height: 1.1;
-          letter-spacing: -1px;
+          letter-spacing: -0.03em;
         }
 
         .highlight {
-          background: var(--accent-gradient);
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-          background-clip: text;
-          text-shadow: 0 0 40px rgba(102, 126, 234, 0.2);
+          color: var(--text-primary);
         }
 
         .hero-subtitle {
-          font-size: 2rem;
-          font-weight: 600;
+          font-size: 1.8rem;
+          font-weight: 500;
           margin-bottom: 1.5rem;
           color: var(--text-secondary);
+          letter-spacing: -0.01em;
         }
 
         .animated-text {
-          color: var(--accent-primary);
-          border-right: 3px solid var(--accent-primary);
+          color: var(--text-primary);
+          font-weight: 700;
+          border-right: 2px solid var(--text-primary);
           animation: blink 1s infinite;
-          padding-right: 5px;
+          padding-right: 4px;
         }
 
         @keyframes blink {
           0%, 50% { border-color: transparent; }
-          51%, 100% { border-color: var(--accent-primary); }
+          51%, 100% { border-color: var(--text-primary); }
         }
 
         .hero-description {
-          font-size: 1.15rem;
-          line-height: 1.7;
-          color: var(--text-muted);
+          font-size: 1.1rem;
+          line-height: 1.75;
+          color: var(--text-secondary);
           margin-bottom: 2.5rem;
-          max-width: 550px;
+          max-width: 520px;
+          font-weight: 400;
         }
 
         .hero-buttons {
           display: flex;
-          gap: 1.2rem;
+          gap: 0.75rem;
           flex-wrap: wrap;
+        }
+
+        .btn {
+          padding: 0.75rem 1.5rem;
+          border-radius: 8px;
+          font-weight: 600;
+          font-size: 0.9rem;
+          font-family: var(--font-sans);
+          transition: all 0.2s ease;
+          border: 1px solid transparent;
+          cursor: pointer;
+          letter-spacing: -0.01em;
+        }
+
+        .btn-primary {
+          background: var(--text-primary);
+          color: white;
+        }
+
+        .btn-primary:hover {
+          background: #334155;
+          transform: translateY(-1px);
+          box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .btn-secondary {
+          background: var(--card-bg);
+          color: var(--text-primary);
+          border-color: var(--border-color);
+        }
+
+        .btn-secondary:hover {
+          background: var(--bg-tertiary);
+          border-color: #cbd5e1;
         }
 
         .hero-visual {
@@ -212,231 +240,119 @@ const Hero = () => {
           justify-content: center;
         }
 
-        .glowing-ring {
-          position: absolute;
-          border-radius: 50%;
-          pointer-events: none;
-          z-index: 0;
-        }
-
-        .glowing-ring.ring-1 {
-          width: 380px;
-          height: 380px;
-          border: 2px dashed rgba(102, 126, 234, 0.25);
-          animation: rotateClockwise 25s linear infinite;
-        }
-
-        .glowing-ring.ring-2 {
-          width: 410px;
-          height: 410px;
-          border: 1px solid rgba(118, 75, 162, 0.15);
-          box-shadow: 0 0 30px rgba(102, 126, 234, 0.1) inset,
-                      0 0 30px rgba(102, 126, 234, 0.1);
-          animation: pulseGlow 4s ease-in-out infinite alternate;
-        }
-
-        @keyframes rotateClockwise {
-          0% { transform: rotate(0deg); }
-          100% { transform: rotate(360deg); }
-        }
-
-        @keyframes pulseGlow {
-          0% { transform: scale(0.96); opacity: 0.4; }
-          100% { transform: scale(1.04); opacity: 0.8; }
-        }
-
         .profile-container {
           position: relative;
-          width: 330px;
-          height: 330px;
-          border-radius: 50%;
+          width: 380px; height: 380px;
+          border-radius: 24px;
           overflow: hidden;
-          box-shadow: 0 15px 40px rgba(102, 126, 234, 0.35);
-          animation: float 6s ease-in-out infinite;
+          box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
           z-index: 1;
+          border: 6px solid white;
         }
 
         .profile-image {
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-          object-position: center;
-          transition: transform 0.3s ease;
+          width: 100%; height: 100%;
+          object-fit: cover; object-position: center;
+          transition: transform 0.5s ease;
+          border-radius: 18px;
         }
 
         .profile-container:hover .profile-image {
-          transform: scale(1.05);
+          transform: scale(1.03);
+        }
+
+        /* Decorative floating dots behind the photo */
+        .hero-dot {
+          position: absolute;
+          border-radius: 50%;
+          z-index: 0;
+        }
+
+        .hero-dot-1 {
+          width: 80px; height: 80px;
+          background: var(--border-color);
+          top: -20px; right: -20px;
+          animation: floatBob 5s 0.5s ease-in-out infinite;
+        }
+
+        .hero-dot-2 {
+          width: 48px; height: 48px;
+          background: #dde8f5;
+          bottom: -16px; left: -16px;
+          animation: floatBob 6s 1s ease-in-out infinite;
+        }
+
+        @keyframes floatBob {
+          0%, 100% { transform: translateY(0px); }
+          50%       { transform: translateY(-10px); }
         }
 
         .profile-fallback {
-          width: 100%;
-          height: 100%;
-          background: var(--accent-gradient);
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: center;
-          color: white;
-          font-weight: 700;
+          width: 100%; height: 100%;
+          background: var(--bg-tertiary);
+          display: flex; flex-direction: column;
+          align-items: center; justify-content: center;
+          color: var(--text-primary); font-weight: 700;
         }
 
-        .fallback-icon {
-          font-size: 4rem;
-          margin-bottom: 1rem;
-        }
-
-        .fallback-text {
-          font-size: 3rem;
-          font-weight: 800;
-        }
-
-        .profile-overlay {
-          position: absolute;
-          top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          background: linear-gradient(
-            135deg,
-            rgba(102, 126, 234, 0.08) 0%,
-            rgba(118, 75, 162, 0.08) 100%
-          );
-          border-radius: 50%;
-          pointer-events: none;
-        }
-
-        @keyframes float {
-          0%, 100% { transform: translateY(0px); }
-          50% { transform: translateY(-15px); }
-        }
+        .fallback-icon { font-size: 4rem; margin-bottom: 1rem; }
+        .fallback-text { font-size: 3rem; font-weight: 800; }
 
         .scroll-indicator {
           position: absolute;
-          bottom: 30px;
-          left: 50%;
-          transform: translateX(-50%);
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          gap: 0.5rem;
-          color: var(--text-muted);
-          font-size: 0.9rem;
+          bottom: 40px; left: 50%; transform: translateX(-50%);
+          display: flex; flex-direction: column; align-items: center;
+          gap: 0.75rem; color: var(--text-muted);
+          font-size: 0.75rem; font-family: var(--font-mono);
+          letter-spacing: 0.1em; text-transform: uppercase;
         }
 
-        .scroll-arrow {
-          width: 2px;
-          height: 30px;
-          background: var(--accent-primary);
-          position: relative;
-          animation: scroll 2s infinite;
+        .scroll-line {
+          width: 1px; height: 40px;
+          background: var(--border-color);
+          position: relative; overflow: hidden;
         }
 
-        .scroll-arrow::after {
-          content: '';
-          position: absolute;
-          bottom: 0;
-          left: -3px;
-          width: 8px;
-          height: 8px;
-          border-right: 2px solid var(--accent-primary);
-          border-bottom: 2px solid var(--accent-primary);
-          transform: rotate(45deg);
+        .scroll-line::after {
+          content: ''; position: absolute; top: 0; left: 0;
+          width: 100%; height: 50%;
+          background: var(--text-muted);
+          animation: dropDown 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
         }
 
-        @keyframes scroll {
-          0% { transform: translateY(0); opacity: 1; }
-          100% { transform: translateY(20px); opacity: 0; }
+        @keyframes dropDown {
+          0% { transform: translateY(-100%); }
+          100% { transform: translateY(200%); }
         }
 
         @media (max-width: 1024px) {
-          .hero-content {
-            gap: 2.5rem;
-          }
-
-          .hero-title {
-            font-size: 3.5rem;
-          }
-
-          .hero-subtitle {
-            font-size: 1.8rem;
-          }
-
-          .profile-container {
-            width: 300px;
-            height: 300px;
-          }
-
-          .glowing-ring.ring-1 {
-            width: 340px;
-            height: 340px;
-          }
-
-          .glowing-ring.ring-2 {
-            width: 370px;
-            height: 370px;
-          }
+          .hero-content { gap: 2.5rem; }
+          .hero-title { font-size: 3.5rem; }
+          .hero-subtitle { font-size: 1.5rem; }
+          .profile-container { width: 320px; height: 320px; }
         }
 
         @media (max-width: 768px) {
           .hero-content {
             grid-template-columns: 1fr;
-            text-align: center;
-            gap: 2rem;
+            text-align: center; gap: 3rem;
           }
-
-          .hero-title {
-            font-size: 3rem;
-          }
-
-          .hero-subtitle {
-            font-size: 1.6rem;
-          }
-
-          .hero-description {
-            margin: 0 auto 2.5rem;
-          }
-
-          .hero-buttons {
-            justify-content: center;
-          }
-
-          .glowing-ring {
-            display: none;
-          }
-
+          .hero-title { font-size: 3rem; }
+          .hero-subtitle { font-size: 1.3rem; }
+          .hero-description { margin: 0 auto 2.5rem; }
+          .hero-buttons { justify-content: center; }
           .profile-container {
-            width: 260px;
-            height: 260px;
-            margin: 0 auto;
+            width: 280px; height: 280px;
+            margin: 0 auto; border-radius: 50%;
           }
-
-          .fallback-icon {
-            font-size: 3rem;
-          }
-
-          .fallback-text {
-            font-size: 2.5rem;
-          }
+          .profile-image { border-radius: 50%; }
         }
 
         @media (max-width: 480px) {
-          .hero-title {
-            font-size: 2.4rem;
-          }
-
-          .hero-subtitle {
-            font-size: 1.3rem;
-          }
-
-          .profile-container {
-            width: 220px;
-            height: 220px;
-          }
-
-          .btn {
-            width: 100%;
-            max-width: 260px;
-          }
+          .hero-title { font-size: 2.4rem; }
+          .hero-subtitle { font-size: 1.15rem; }
+          .profile-container { width: 220px; height: 220px; }
+          .btn { width: 100%; max-width: 280px; }
         }
       `}</style>
     </section>

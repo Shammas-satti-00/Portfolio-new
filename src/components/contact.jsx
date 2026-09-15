@@ -140,7 +140,7 @@ const Contact = () => {
                     GitHub
                   </a>
                   <a
-                    href="https://www.linkedin.com/in/shammas-ul-islam-660895275/"
+                    href="https://www.linkedin.com/in/shammas-satti00/"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="social-button"

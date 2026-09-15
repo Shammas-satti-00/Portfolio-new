@@ -21,7 +21,7 @@ const Experience = () => {
       location: 'Rawalpindi, Pakistan',
       period: 'Apr 2026 – Jul 2026',
       type: 'Full-time',
-      color: '#667eea',
+      color: '#3b82f6',
       icon: '✈️',
       tags: ['Unity 3D', 'C#', 'Physics Sim', 'Flight Controls'],
       points: [
@@ -183,15 +183,15 @@ const Experience = () => {
           justify-content: center;
           font-size: 1rem;
           z-index: 1;
-          box-shadow: 0 0 0 6px rgba(102, 126, 234, 0.08),
-                      0 0 20px rgba(102, 126, 234, 0.2);
+          box-shadow: 0 0 0 6px rgba(0, 0, 0, 0.04),
+                      0 0 20px rgba(0, 0, 0, 0.06);
           transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
         .exp-item:hover .exp-badge {
           transform: scale(1.2);
-          box-shadow: 0 0 0 8px rgba(102, 126, 234, 0.12),
-                      0 0 28px rgba(102, 126, 234, 0.35);
+          box-shadow: 0 0 0 8px rgba(0, 0, 0, 0.06),
+                      0 0 28px rgba(0, 0, 0, 0.1);
         }
 
         /* ── Card ── */
@@ -234,9 +234,9 @@ const Experience = () => {
           font-weight: 600;
           letter-spacing: 0.08em;
           text-transform: uppercase;
-          background: rgba(102, 126, 234, 0.12);
-          color: var(--accent-primary);
-          border: 1px solid rgba(102, 126, 234, 0.25);
+          background: var(--bg-tertiary);
+          color: var(--accent-secondary);
+          border: 1px solid var(--border-color);
           padding: 3px 10px;
           border-radius: 20px;
         }
@@ -321,16 +321,16 @@ const Experience = () => {
           font-weight: 500;
           padding: 3px 11px;
           border-radius: 20px;
-          background: rgba(102, 126, 234, 0.08);
+          background: var(--bg-secondary);
           color: var(--text-secondary);
-          border: 1px solid rgba(102, 126, 234, 0.18);
+          border: 1px solid var(--border-color);
           font-family: 'JetBrains Mono', monospace;
           transition: all 0.2s ease;
         }
 
         .exp-card:hover .exp-tag {
-          background: rgba(102, 126, 234, 0.15);
-          border-color: rgba(102, 126, 234, 0.35);
+          background: var(--bg-tertiary);
+          border-color: #cbd5e1;
         }
 
         @media (max-width: 768px) {
