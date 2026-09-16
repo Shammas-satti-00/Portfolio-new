@@ -13,6 +13,7 @@ const Navbar = () => {
     { id: 'experience', label: 'Experience', icon: '💼' },
     { id: 'projects',   label: 'Projects',   icon: '🎮' },
     { id: 'skills',     label: 'Skills',     icon: '⚡' },
+    { id: 'bootcamps',  label: 'Bootcamps',  icon: '🏆' },
     { id: 'contact',    label: 'Contact',    icon: '📧' },
   ]
 

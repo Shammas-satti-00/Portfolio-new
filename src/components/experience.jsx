@@ -19,16 +19,17 @@ const Experience = () => {
       role: 'Unity Game Developer',
       company: 'Plasma IT Solutions',
       location: 'Rawalpindi, Pakistan',
-      period: 'Apr 2026 – Jul 2026',
+      period: 'Apr 2026 – Jun 2026',
       type: 'Full-time',
       color: '#3b82f6',
       icon: '✈️',
+      certificateUrl: '/plasma.pdf',
       tags: ['Unity 3D', 'C#', 'Physics Sim', 'Flight Controls'],
       points: [
-        'Developed flight simulation systems including aircraft controls and physics-based movement.',
-        'Built gameplay features such as missions, checkpoints, and navigation mechanics.',
-        'Optimized large open-world environments for smooth performance during high-speed gameplay.',
-        'Debugged and refined gameplay loops to improve responsiveness and overall player experience.',
+        'Developed flight simulation physics, aerodynamics, and 6-DOF controls in C#.',
+        'Optimized memory and draw calls using Unity Profiler to sustain 60+ FPS.',
+        'Designed aerial mission objectives, checkpoint pacing, and level progression.',
+        'Tuned flight responsiveness, camera tracking, and audiovisual flight feel.',
       ],
     },
     {
@@ -39,12 +40,13 @@ const Experience = () => {
       type: 'Internship',
       color: '#06b6d4',
       icon: '🎮',
+      certificateUrl: '/veeivs.pdf',
       tags: ['Unity', 'C#', 'Photon PUN', 'Optimization'],
       points: [
-        'Built core gameplay systems in Unity from the ground up.',
-        'Implemented modular weapon systems with rotation, cooldowns, and firing visual effects.',
-        'Created and optimized 3D environments using chunk-based level layouts.',
-        'Debugged gameplay issues using Unity Profiler, logs, and structured testing pipelines.',
+        'Engineered modular C# weapon mechanics with projectile physics and cooldowns.',
+        'Programmed enemy AI with Finite State Machines and chunk-based level loading.',
+        'Designed 3D level layouts, obstacle placements, and tactical combat arenas.',
+        'Balanced weapon feedback, difficulty curves, and combat encounter pacing.',
       ],
     },
   ]
@@ -100,12 +102,27 @@ const Experience = () => {
                   ))}
                 </ul>
 
-                <div className="exp-tags">
-                  {exp.tags.map((t, ti) => (
-                    <span key={ti} className="exp-tag" style={{ '--tag-color': exp.color }}>
-                      {t}
-                    </span>
-                  ))}
+                <div className="exp-footer">
+                  <div className="exp-tags">
+                    {exp.tags.map((t, ti) => (
+                      <span key={ti} className="exp-tag" style={{ '--tag-color': exp.color }}>
+                        {t}
+                      </span>
+                    ))}
+                  </div>
+
+                  {exp.certificateUrl && (
+                    <a
+                      href={exp.certificateUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="exp-cert-btn"
+                    >
+                      <span className="cert-icon">📜</span>
+                      <span>View Certificate</span>
+                      <span className="cert-arrow">↗</span>
+                    </a>
+                  )}
                 </div>
               </div>
             </div>
@@ -310,6 +327,17 @@ const Experience = () => {
           top: 1px;
         }
 
+        .exp-footer {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          gap: 1rem;
+          flex-wrap: wrap;
+          margin-top: 0.5rem;
+          padding-top: 1rem;
+          border-top: 1px solid var(--border-color);
+        }
+
         .exp-tags {
           display: flex;
           flex-wrap: wrap;
@@ -331,6 +359,57 @@ const Experience = () => {
         .exp-card:hover .exp-tag {
           background: var(--bg-tertiary);
           border-color: #cbd5e1;
+        }
+
+        .exp-cert-btn {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.45rem;
+          padding: 0.45rem 1rem;
+          font-size: 0.8rem;
+          font-weight: 600;
+          font-family: var(--font-sans);
+          color: var(--text-primary);
+          background: var(--bg-secondary);
+          border: 1px solid var(--border-color);
+          border-radius: 8px;
+          text-decoration: none;
+          transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+          cursor: pointer;
+        }
+
+        .exp-cert-btn:hover {
+          background: var(--btn-primary-bg);
+          color: var(--btn-primary-text);
+          border-color: var(--btn-primary-bg);
+          transform: translateY(-2px);
+          box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+        }
+
+        .cert-icon {
+          font-size: 0.95rem;
+        }
+
+        .cert-arrow {
+          font-size: 0.85rem;
+          transition: transform 0.2s ease;
+        }
+
+        .exp-cert-btn:hover .cert-arrow {
+          transform: translate(2px, -2px);
+        }
+
+        [data-theme="dark"] .exp-cert-btn {
+          background: #18181b;
+          color: #f1f5f9;
+          border-color: #27272a;
+        }
+
+        [data-theme="dark"] .exp-cert-btn:hover {
+          background: #27272a;
+          color: #60a5fa;
+          border-color: #3b82f6;
+          box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
         }
 
         @media (max-width: 768px) {

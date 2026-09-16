@@ -16,7 +16,7 @@ const About = () => {
   const coreDomains = [
     { title: 'Gameplay Systems', desc: 'Responsive player mechanics, modular weapons, and core game loops.', icon: '🎮', color: '#0f172a' },
     { title: 'Physics & Simulation', desc: 'Realistic flight controls, physics movement, and environment checkpoints.', icon: '✈️', color: '#3b82f6' },
-    { title: 'Optimization', desc: 'Maximizing framerates, reducing GC overhead, and profiling memory.', icon: '⚡', color: '#f59e0b' },
+    { title: 'Game Design', desc: 'Level layouts, combat pacing, player progression, and intuitive game feel.', icon: '🎯', color: '#f59e0b' },
     { title: 'Multiplayer Dev', desc: 'Online lobbies and real-time state sync using Photon PUN.', icon: '🌐', color: '#10b981' },
   ]
 
@@ -178,8 +178,13 @@ const About = () => {
           content: '';
           position: absolute;
           top: 0; left: 0; right: 0;
-          height: 2px;
-          background: var(--text-primary);
+          height: 1px;
+          background: linear-gradient(90deg, transparent, rgba(15, 23, 42, 0.2) 20%, rgba(15, 23, 42, 0.2) 80%, transparent);
+        }
+
+        [data-theme="dark"] .about-bio-card::before {
+          height: 1px;
+          background: linear-gradient(90deg, transparent 5%, rgba(255, 255, 255, 0.15) 25%, rgba(255, 255, 255, 0.15) 75%, transparent 95%);
         }
 
         .bio-label {

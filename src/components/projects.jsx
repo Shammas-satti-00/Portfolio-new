@@ -96,6 +96,42 @@ const Projects = () => {
       featured: false
     },
     {
+      id: 15,
+      title: "Shadow Runner",
+      description: "An intense fast-paced 3D runner game where speed and precision determine survival against dynamic obstacles.",
+      image: "vr.jpeg",
+      video: "/folder/shaddow_runner.mp4",
+      technologies: ["Unity 3D", "C#", "Obstacle Mechanics", "Runner Controls"],
+      category: "Games",
+      linkType: "github",
+      projectUrl: "https://github.com/Shammas-satti-00/Shadow-Runner.git",
+      featured: false
+    },
+    {
+      id: 16,
+      title: "Grid Battle Arena",
+      description: "A strategic turn-based grid combat arena built with tactical tile navigation, unit mechanics, and 3D battle systems.",
+      image: "vr.jpeg",
+      video: "/folder/grid_battle.mp4",
+      technologies: ["Unity 3D", "C#", "Grid System", "Turn-Based Strategy"],
+      category: "Games",
+      linkType: "github",
+      projectUrl: "https://github.com/Shammas-satti-00/Grid-Battle-Arena-Unity-3D",
+      featured: false
+    },
+    {
+      id: 17,
+      title: "RPG Prototype",
+      description: "An exploratory 3D RPG gameplay prototype featuring interactive combat, character mechanics, and world design built with the Core game engine.",
+      image: "vr.jpeg",
+      video: "/folder/RGB_prototype.mp4",
+      technologies: ["Core Engine", "Lua", "RPG Mechanics", "Level Design"],
+      category: "Games",
+      linkType: "github",
+      projectUrl: "https://github.com/Shammas-satti-00",
+      featured: false
+    },
+    {
       id: 1,
       title: "Compound Environment",
       description: "A realistic 3D environment made in Unity, focusing on physics-based controls and optimization.",
@@ -239,7 +275,7 @@ const Projects = () => {
                 <div className="media-hover">
                   <a
                     href={project.projectUrl}
-                    className="project-link"
+                    className={`project-link ${project.linkType === 'playstore' ? 'project-link-playstore' : 'project-link-source'}`}
                     target="_blank"
                     rel="noopener noreferrer"
                   >
@@ -412,12 +448,15 @@ const Projects = () => {
           border-radius: 8px;
           font-weight: 600;
           font-size: 0.85rem;
-          color: white;
-          background: var(--text-primary);
+          color: #ffffff;
+          background: #0f172a;
           text-decoration: none;
           transition: all 0.2s ease;
           transform: translateY(10px);
           opacity: 0;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
         }
 
         .project-card:hover .project-link {
@@ -428,6 +467,36 @@ const Projects = () => {
 
         .project-link:hover {
           background: #334155;
+          color: #ffffff;
+        }
+
+        /* ── Dark Mode Only Adjustments ── */
+        [data-theme="dark"] .project-link-source {
+          background: #1e293b;
+          color: #93c5fd;
+          border: 1px solid #3b82f6;
+          box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+        }
+
+        [data-theme="dark"] .project-link-source:hover {
+          background: #2563eb;
+          color: #ffffff;
+          border-color: #60a5fa;
+          box-shadow: 0 4px 18px rgba(37, 99, 235, 0.45);
+        }
+
+        [data-theme="dark"] .project-link-playstore {
+          background: #064e3b;
+          color: #6ee7b7;
+          border: 1px solid #10b981;
+          box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+        }
+
+        [data-theme="dark"] .project-link-playstore:hover {
+          background: #059669;
+          color: #ffffff;
+          border-color: #34d399;
+          box-shadow: 0 4px 18px rgba(16, 185, 129, 0.45);
         }
 
         .card-body {
