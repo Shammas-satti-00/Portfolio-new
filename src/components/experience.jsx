@@ -19,7 +19,7 @@ const Experience = () => {
       role: 'Unity Game Developer',
       company: 'Plasma IT Solutions',
       location: 'Rawalpindi, Pakistan',
-      period: 'Apr 2026 – Jun 2026',
+      period: 'Apr 2026 – Jul 2026',
       type: 'Full-time',
       color: '#3b82f6',
       icon: '✈️',
