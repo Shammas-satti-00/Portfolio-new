@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 
 const Projects = () => {
   const [isVisible, setIsVisible] = useState(false)
-  const [activeFilter, setActiveFilter] = useState('all')
+  const [activeFilter, setActiveFilter] = useState('Games')
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -74,7 +74,7 @@ const Projects = () => {
     {
       id: 13,
       title: "Atiana Lego",
-      description: "A fun and creative Lego-themed adventure game.",
+      description: "A fun and creative Lego-themed adventure game featuring expansive worlds and interactive puzzles.",
       image: "vr.jpeg",
       video: "/folder/Atiana lego.mp4",
       technologies: ["Unity 3D", "C#", "Level Design"],
@@ -96,42 +96,6 @@ const Projects = () => {
       featured: false
     },
     {
-      id: 15,
-      title: "Shadow Runner",
-      description: "An intense fast-paced 3D runner game where speed and precision determine survival against dynamic obstacles.",
-      image: "vr.jpeg",
-      video: "/folder/shaddow_runner.mp4",
-      technologies: ["Unity 3D", "C#", "Obstacle Mechanics", "Runner Controls"],
-      category: "Games",
-      linkType: "github",
-      projectUrl: "https://github.com/Shammas-satti-00/Shadow-Runner.git",
-      featured: false
-    },
-    {
-      id: 16,
-      title: "Grid Battle Arena",
-      description: "A strategic turn-based grid combat arena built with tactical tile navigation, unit mechanics, and 3D battle systems.",
-      image: "vr.jpeg",
-      video: "/folder/grid_battle.mp4",
-      technologies: ["Unity 3D", "C#", "Grid System", "Turn-Based Strategy"],
-      category: "Games",
-      linkType: "github",
-      projectUrl: "https://github.com/Shammas-satti-00/Grid-Battle-Arena-Unity-3D",
-      featured: false
-    },
-    {
-      id: 17,
-      title: "RPG Prototype",
-      description: "An exploratory 3D RPG gameplay prototype featuring interactive combat, character mechanics, and world design built with the Core game engine.",
-      image: "vr.jpeg",
-      video: "/folder/RGB_prototype.mp4",
-      technologies: ["Core Engine", "Lua", "RPG Mechanics", "Level Design"],
-      category: "Games",
-      linkType: "github",
-      projectUrl: "https://github.com/Shammas-satti-00",
-      featured: false
-    },
-    {
       id: 1,
       title: "Compound Environment",
       description: "A realistic 3D environment made in Unity, focusing on physics-based controls and optimization.",
@@ -146,7 +110,7 @@ const Projects = () => {
     {
       id: 3,
       title: "Cube Run",
-      description: "A fun and creative cube game",
+      description: "A fun and creative cube game with challenging endless runner mechanics.",
       image: "shape.png",
       video: "/folder/cube ran.mp4",
       technologies: ["Unity 3D", "C#"],
@@ -218,14 +182,11 @@ const Projects = () => {
   ]
 
   const filters = [
-    { id: 'all', label: 'All' },
     { id: 'Games', label: 'Games' },
     { id: 'fullstack', label: 'Full Stack & AI' }
   ]
 
-  const filteredProjects = activeFilter === 'all'
-    ? projects
-    : projects.filter(project => project.category === activeFilter)
+  const filteredProjects = projects.filter(project => project.category === activeFilter)
 
   return (
     <section id="projects" className="projects-section">
@@ -275,7 +236,7 @@ const Projects = () => {
                 <div className="media-hover">
                   <a
                     href={project.projectUrl}
-                    className={`project-link ${project.linkType === 'playstore' ? 'project-link-playstore' : 'project-link-source'}`}
+                    className="project-link"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
@@ -369,51 +330,51 @@ const Projects = () => {
           color: var(--btn-primary-text);
         }
 
-        /* ── Clean Grid ── */
+        /* ── Magazine Editorial Grid ── */
         .project-grid {
           display: grid;
-          grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-          gap: 1.5rem;
+          grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+          gap: 3rem 2rem;
         }
 
         @media (min-width: 1024px) {
           .project-grid {
             grid-template-columns: repeat(3, 1fr);
+            grid-auto-rows: minmax(300px, auto);
           }
-
-          .featured-card {
+          .project-card:nth-child(4n+1) {
             grid-column: span 2;
           }
-
-          .featured-card .card-media {
-            height: 340px;
+          .project-card:nth-child(4n+1) .card-media {
+            height: 400px;
           }
         }
 
         .project-card {
-          background: var(--card-bg);
-          border: 1px solid var(--border-color);
-          border-radius: 16px;
+          background: transparent;
+          border: none;
+          border-bottom: 2px solid var(--text-primary);
+          border-radius: 0;
           overflow: hidden;
           display: flex;
           flex-direction: column;
-          transition: all 0.3s ease;
+          transition: all 0.4s ease;
+          padding-bottom: 1.5rem;
           opacity: 0;
           transform: translateY(20px);
         }
 
         .project-card:hover {
           transform: translateY(-4px);
-          box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
-          border-color: #cbd5e1;
         }
 
         .card-media {
           position: relative;
-          height: 220px;
+          height: 250px;
           width: 100%;
+          margin: 0 0 1.5rem 0;
+          border-radius: 0;
           overflow: hidden;
-          background: var(--bg-tertiary);
         }
 
         .media-image, .media-video {
@@ -425,13 +386,13 @@ const Projects = () => {
 
         .project-card:hover .media-image,
         .project-card:hover .media-video {
-          transform: scale(1.04);
+          transform: scale(1.02);
         }
 
         .media-hover {
           position: absolute;
           inset: 0;
-          background: rgba(15, 23, 42, 0.6);
+          background: rgba(15, 23, 42, 0.4);
           display: flex;
           align-items: center;
           justify-content: center;
@@ -444,100 +405,78 @@ const Projects = () => {
         }
 
         .project-link {
-          padding: 0.6rem 1.5rem;
-          border-radius: 8px;
-          font-weight: 600;
+          padding: 0.8rem 2rem;
+          border: 1px solid white;
+          font-weight: 700;
           font-size: 0.85rem;
-          color: #ffffff;
-          background: #0f172a;
+          color: white;
+          background: transparent;
+          text-transform: uppercase;
+          letter-spacing: 0.1em;
           text-decoration: none;
           transition: all 0.2s ease;
-          transform: translateY(10px);
           opacity: 0;
-          display: inline-flex;
-          align-items: center;
-          justify-content: center;
         }
 
         .project-card:hover .project-link {
-          transform: translateY(0);
           opacity: 1;
-          transition-delay: 0.1s;
         }
 
         .project-link:hover {
-          background: #334155;
-          color: #ffffff;
-        }
-
-        /* ── Dark Mode Only Adjustments ── */
-        [data-theme="dark"] .project-link-source {
-          background: #1e293b;
-          color: #93c5fd;
-          border: 1px solid #3b82f6;
-          box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
-        }
-
-        [data-theme="dark"] .project-link-source:hover {
-          background: #2563eb;
-          color: #ffffff;
-          border-color: #60a5fa;
-          box-shadow: 0 4px 18px rgba(37, 99, 235, 0.45);
-        }
-
-        [data-theme="dark"] .project-link-playstore {
-          background: #064e3b;
-          color: #6ee7b7;
-          border: 1px solid #10b981;
-          box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
-        }
-
-        [data-theme="dark"] .project-link-playstore:hover {
-          background: #059669;
-          color: #ffffff;
-          border-color: #34d399;
-          box-shadow: 0 4px 18px rgba(16, 185, 129, 0.45);
+          background: white;
+          color: black;
         }
 
         .card-body {
-          padding: 1.5rem;
+          padding: 0;
           display: flex;
           flex-direction: column;
           flex-grow: 1;
         }
 
         .project-title {
-          font-size: 1.25rem;
-          font-weight: 700;
+          font-size: 1.8rem;
+          font-weight: 900;
+          text-transform: uppercase;
           color: var(--text-primary);
-          line-height: 1.3;
-          margin: 0 0 0.5rem;
-          letter-spacing: -0.01em;
+          line-height: 1.1;
+          margin: 0 0 1rem;
+          letter-spacing: -0.02em;
         }
 
         .project-description {
-          font-size: 0.9rem;
+          font-size: 0.95rem;
           color: var(--text-secondary);
           line-height: 1.6;
-          margin-bottom: 1.25rem;
+          margin-bottom: 1.5rem;
+          border-left: 3px solid var(--text-primary);
+          padding-left: 1rem;
           flex-grow: 1;
         }
 
         .project-tech {
           display: flex;
           flex-wrap: wrap;
-          gap: 0.4rem;
           margin-top: auto;
+          border-top: 1px solid var(--border-color);
+          padding-top: 1rem;
         }
 
         .tech-tag {
-          background: var(--bg-tertiary);
-          color: var(--text-secondary);
-          padding: 0.3rem 0.7rem;
-          border-radius: 6px;
-          font-size: 0.72rem;
-          font-weight: 600;
-          font-family: var(--font-mono);
+          background: transparent;
+          border: none;
+          color: var(--text-primary);
+          padding: 0;
+          font-size: 0.75rem;
+          font-weight: 700;
+          text-transform: uppercase;
+          letter-spacing: 0.05em;
+        }
+
+        .tech-tag:not(:last-child)::after {
+          content: "•";
+          margin: 0 0.5rem;
+          color: var(--text-muted);
         }
 
         .slide-up {
@@ -559,12 +498,6 @@ const Projects = () => {
         @media (max-width: 768px) {
           .project-grid {
             grid-template-columns: 1fr;
-          }
-          .featured-card {
-            grid-column: span 1;
-          }
-          .featured-card .card-media {
-            height: 220px;
           }
           .projects-section { padding: 60px 0; }
           .section-title { font-size: 2.2rem; }
